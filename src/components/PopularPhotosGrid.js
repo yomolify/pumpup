@@ -17,6 +17,12 @@ import {
 
 import {Avatar} from 'react-native-elements'
 
+// componentWillReceiveProps(nextProps) {
+//   // update original states
+//   this.setState({
+//     latitude: nextProps.latitude,
+//   });
+// }
 /**
  * ## Styles
  */
@@ -44,16 +50,18 @@ const UserProfile = React.createClass({
   },
 
   /**
-   * ### Render
+   * ### render
    *
-   * @return {Component} Display the User Profile
+   * @return {Component} Display the Button
    */
   render() {
-    const { profileImage, name, bio } = this.props.userProfile
+    // const { profileImage, name, bio } = this.props.userProfile
+    // console.log("UserProfile.js profileImage is:")
+    // console.log(profileImage)
 
     return (
       <View style={styles.container}>
-        <View style={styles.avatar}>
+        {/* <View style={styles.avatar}>
           <Avatar
             large
             rounded
@@ -69,7 +77,7 @@ const UserProfile = React.createClass({
           <View style={styles.bio}>
             <Text>{bio}</Text>
           </View>
-        </View>
+        </View> */}
       </View>
     )
   }

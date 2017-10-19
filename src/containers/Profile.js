@@ -33,6 +33,11 @@ import
 from 'react-native'
 import { Header, Divider } from 'react-native-elements'
 
+import UserProfile from '../components/UserProfile'
+import UserPhotosSlider from '../components/UserPhotosSlider'
+import PopularPhotosGrid from '../components/PopularPhotosGrid'
+
+
 /**
  * ## Styles
  */
@@ -119,23 +124,23 @@ class Profile extends Component {
         <Divider style={styles.divider} />
 
         {/* User Profile(Bio) */}
-        {/* <View style={styles.userProfile}>
+        <View style={styles.userProfile}>
           <UserProfile userProfile={userProfile}/>
-        </View> */}
+        </View>
 
         <Divider style={styles.divider} />
 
         {/* User Feed  Photos  (Slider) */}
-        {/* <View style={styles.userPhotosSlider}>
-          <UserPhotosSlider props={userPhotosSlider}/>
-        </View> */}
+        <View style={styles.userPhotosSlider}>
+          <UserPhotosSlider userPhotos={userPhotos}/>
+        </View>
 
         <Divider style={styles.divider} />
 
         {/* Popular Feed  Photos  (Grid) */}
-        {/* <View style={styles.popularPhotosGrid}>
-          <PopularPhotosGrid props={popularPhotosGrid}/>
-        </View> */}
+        <View style={styles.popularPhotosGrid}>
+          <PopularPhotosGrid popularPhotos={popularPhotos}/>
+        </View>
 
         <Divider style={styles.divider} />
       </View>
@@ -146,8 +151,8 @@ class Profile extends Component {
 Profile.propTypes = {
   actions: PropTypes.object.isRequired,
   userProfile: PropTypes.object,
-  userPhotosSlider: PropTypes.object,
-  popularPhotosGrid: PropTypes.object
+  userPhotos: PropTypes.array,
+  popularPhotos: PropTypes.array
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)

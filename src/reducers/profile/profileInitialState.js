@@ -20,7 +20,7 @@ const {Record} = require('immutable')
  */
 const UserProfile = Record({
   userProfile: new (Record({
-    profileImage: null,
+    profileImage: '',
     name: null,
     bio: null,
   }))(),

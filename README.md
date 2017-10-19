@@ -10,7 +10,7 @@ A React-Native mobile app, or maybe just an example for iOS and Android with a s
 * [Install React-Native](https://facebook.github.io/react-native/docs/getting-started.html#content)
 
 ### Install Pumpup
-* Clone snowflake: `git clone https://github.com/bartonhammond/snowflake.git`
+* Clone pumpup: `git clone https://github.com/yomolify/pumpup.git`
 
 * install dependencies
 
