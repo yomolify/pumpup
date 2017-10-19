@@ -15,16 +15,17 @@
  *
  */
 const {
-  ON_PROFILE_FORM_FIELD_CHANGE,
-  GET_PROFILE_REQUEST,
-  GET_PROFILE_SUCCESS,
-  GET_PROFILE_FAILURE,
+  GET_USER_PROFILE_REQUEST,
+  GET_USER_PROFILE_SUCCESS,
+  GET_USER_PROFILE_FAILURE,
 
-  PROFILE_UPDATE_REQUEST,
-  PROFILE_UPDATE_SUCCESS,
-  PROFILE_UPDATE_FAILURE,
+  GET_USER_PHOTOS_REQUEST,
+  GET_USER_PHOTOS_SUCCESS,
+  GET_USER_PHOTOS_FAILURE,
 
-  LOGOUT_SUCCESS,
+  GET_POPULAR_PHOTOS_REQUEST,
+  GET_POPULAR_PHOTOS_SUCCESS,
+  GET_POPULAR_PHOTOS_FAILURE,
 
   SET_STATE
 } = require('../../lib/constants').default
@@ -47,120 +48,93 @@ export default function profileReducer (state = initialState, action) {
   if (!(state instanceof InitialState)) return initialState.mergeDeep(state)
 
   switch (action.type) {
-    /**
-     * ### Request starts
-     * set the form to fetching and clear any errors
-     */
-    case GET_PROFILE_REQUEST:
-    case PROFILE_UPDATE_REQUEST:
-      return state.setIn(['form', 'isFetching'], true)
-      .setIn(['form', 'error'], null)
+  /**
+   * ### UserProfile Requst
+   * fetch user profile and set it on success, error on failure
+   */
+  case GET_USER_PROFILE_REQUEST:
+    return state.setIn(['userProfile', 'isFetching'], true)
+    .setIn(['userProfile', 'error'], null)
 
-    /**
-     * ### Request end successfully
-     * set the form to fetching as done
-     */
-    case PROFILE_UPDATE_SUCCESS:
-      return state.setIn(['form', 'isFetching'], false)
+  case GET_USER_PROFILE_SUCCESS:
+    return state.setIn(['userProfile', 'isFetching'], false)
+    .setIn(['userProfile', 'error'], null)
+    .setIn(['userProfile', 'userProfile'], action.payload)
 
-    /**
-     * ### Request ends successfully
-     *
-     * the fetching is done, set the UI fields and the originalProfile
-     *
-     * Validate the data to make sure it's all good and someone didn't
-     * mung it up through some other mechanism
-     */
-    case GET_PROFILE_SUCCESS:
-      nextProfileState = state.setIn(['form', 'isFetching'], false)
-      .setIn(['form', 'fields', 'username'], action.payload.username)
-      .setIn(['form', 'fields', 'email'], action.payload.email)
-      .setIn(['form', 'fields', 'emailVerified'],
-             action.payload.emailVerified)
-      .setIn(['form', 'originalProfile', 'username'], action.payload.username)
-      .setIn(['form', 'originalProfile', 'email'], action.payload.email)
-      .setIn(['form', 'originalProfile', 'emailVerified'], action.payload.emailVerified)
-      .setIn(['form', 'originalProfile', 'objectId'], action.payload.objectId)
-      .setIn(['form', 'error'], null)
 
-      return formValidation(
-      fieldValidation(nextProfileState, action)
-      , action)
+  case GET_USER_PROFILE_FAILURE:
+    return state.setIn(['userProfile', 'isFetching'], false)
+    .setIn(['userProfile', 'error'], action.payload)
 
-    /**
-     * User logged out, so reset form fields and original profile.
-     *
-     */
-    case LOGOUT_SUCCESS:
-      nextProfileState = state.setIn(['form', 'fields', 'username'], '')
-      .setIn(['form', 'fields', 'email'], '')
-      .setIn(['form', 'fields', 'emailVerified'], false)
-      .setIn(['form', 'originalProfile', 'username'], '')
-      .setIn(['form', 'originalProfile', 'email'], '')
-      .setIn(['form', 'originalProfile', 'emailVerified'], false)
-      .setIn(['form', 'originalProfile', 'objectId'], null)
-      .setIn(['form', 'error'], null)
-      return formValidation(nextProfileState, action)
+  /**
+   * ### UserPhotos Requst
+   * fetch user photos and set them on success, error on failure
+   */
+  case GET_USER_PHOTOS_REQUEST:
+    return state.setIn(['userPhotos', 'isFetching'], true)
+    .setIn(['userPhotos', 'error'], null)
 
-    /**
-     * ### Request fails
-     * we're done fetching and the error needs to be displayed to the user
-     */
-    case GET_PROFILE_FAILURE:
-    case PROFILE_UPDATE_FAILURE:
-      return state.setIn(['form', 'isFetching'], false)
-      .setIn(['form', 'error'], action.payload)
+  case GET_USER_PHOTOS_SUCCESS:
+    return state.setIn(['userPhotos', 'isFetching'], false)
+    .setIn(['userPhotos', 'error'], null)
+    .setIn(['userPhotos', 'userPhotos'], action.payload)
 
-    /**
-     * ### form fields have changed
-     *
-     * Set the state with the fields, clear the form error
-     * and perform field and form validation
-     */
-    case ON_PROFILE_FORM_FIELD_CHANGE: {
-      const {field, value} = action.payload
-      let nextState = state
-          .setIn(['form', 'fields', field], value)
-          .setIn(['form', 'error'], null)
 
-      return formValidation(
-        fieldValidation(nextState, action),
-        action
-      )
-    }
+  case GET_USER_PHOTOS_FAILURE:
+    return state.setIn(['userPhotos', 'isFetching'], false)
+    .setIn(['userPhotos', 'error'], action.payload)
 
-    /**
-     * ### set the state
-     *
-     * This is in support of Hot Loading - take the payload
-     * and set the values into the state
-     *
-     */
-    case SET_STATE:
-      var profile = JSON.parse(action.payload).profile.form
-      var next = state.setIn(['form', 'disabled'], profile.disabled)
-          .setIn(['form', 'error'], profile.error)
-          .setIn(['form', 'isValid'], profile.isValid)
-          .setIn(['form', 'isFetching'], profile.isFetching)
-          .setIn(['form', 'originalProfile',
-                  'username'], profile.originalProfile.username)
-          .setIn(['form', 'originalProfile',
-                  'email'], profile.originalProfile.email)
-          .setIn(['form', 'originalProfile',
-                  'objectId'], profile.originalProfile.objectId)
-          .setIn(['form', 'originalProfile',
-                  'emailVerified'], profile.originalProfile.emailVerified)
-          .setIn(['form', 'fields',
-                  'username'], profile.fields.username)
-          .setIn(['form', 'fields',
-                  'usernameHasError'], profile.fields.usernameHasError)
-          .setIn(['form', 'fields',
-                  'email'], profile.fields.email)
-          .setIn(['form', 'fields',
-                  'emailHasError'], profile.fields.emailHasError)
-          .setIn(['form', 'fields',
-                  'emailVerified'], profile.fields.emailVerified)
-      return next
+  /**
+   * ### PopularPhotos Requst
+   * fetch popular photos and set them on success, error on failure
+   */
+  case GET_POPULAR_PHOTOS_REQUEST:
+    return state.setIn(['popularPhotos', 'isFetching'], true)
+    .setIn(['popularPhotos', 'error'], null)
+
+  case GET_POPULAR_PHOTOS_SUCCESS:
+    return state.setIn(['popularPhotos', 'isFetching'], false)
+    .setIn(['popularPhotos', 'error'], null)
+    .setIn(['popularPhotos', 'popularPhotos'], action.payload)
+
+
+  case GET_POPULAR_PHOTOS_FAILURE:
+    return state.setIn(['popularPhotos', 'isFetching'], false)
+    .setIn(['popularPhotos', 'error'], action.payload)
+
+  /**
+   * ### set the state
+   *
+   * This is in support of Hot Loading - take the payload
+   * and set the values into the state
+   *
+   */
+  case SET_STATE:
+    var profile = JSON.parse(action.payload).profile.form
+    var next = state.setIn(['form', 'disabled'], profile.disabled)
+        .setIn(['form', 'error'], profile.error)
+        .setIn(['form', 'isValid'], profile.isValid)
+        .setIn(['form', 'isFetching'], profile.isFetching)
+        .setIn(['form', 'originalProfile',
+                'username'], profile.originalProfile.username)
+        .setIn(['form', 'originalProfile',
+                'email'], profile.originalProfile.email)
+        .setIn(['form', 'originalProfile',
+                'objectId'], profile.originalProfile.objectId)
+        .setIn(['form', 'originalProfile',
+                'emailVerified'], profile.originalProfile.emailVerified)
+        .setIn(['form', 'fields',
+                'username'], profile.fields.username)
+        .setIn(['form', 'fields',
+                'usernameHasError'], profile.fields.usernameHasError)
+        .setIn(['form', 'fields',
+                'email'], profile.fields.email)
+        .setIn(['form', 'fields',
+                'emailHasError'], profile.fields.emailHasError)
+        .setIn(['form', 'fields',
+                'emailVerified'], profile.fields.emailVerified)
+    return next
+  default:
 
   }// switch
   /**

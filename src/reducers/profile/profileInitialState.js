@@ -13,37 +13,53 @@
 const {Record} = require('immutable')
 
 /**
- * ## Form
- * This Record contains the state of the form and the
- * fields it contains.
+ * ## User Profile
+ * This Record contains the state of the
+ * user information - image, name, bio.
  *
- * The originalProfile is what the server provided and has the objectId
- * The fields are what display on the UI
  */
-const Form = Record({
-  originalProfile: new (Record({
-    username: null,
-    email: null,
-    objectId: null,
-    emailVerified: null
+const UserProfile = Record({
+  userProfile: new (Record({
+    profileImage: null,
+    name: null,
+    bio: null,
   }))(),
-  disabled: false,
   error: null,
-  isValid: false,
   isFetching: false,
-  fields: new (Record({
-    username: '',
-    usernameHasError: false,
-    usernameErrorMsg: '',
-    email: '',
-    emailHasError: false,
-    emailErrorMsg: '',
-    emailVerified: false
-  }))()
 })
 
-var InitialState = Record({
-  form: new Form()
+/**
+ * ## User Photos for Slider
+ * This Record contains the state of the
+ * user photos to be displayed in the slider.
+ *
+ */
+const UserPhotos = Record({
+  userPhotos: new (Record({
+    posts: null,
+  }))(),
+  error: null,
+  isFetching: false,
+})
+
+/**
+ * ## Popular Photos for Grid
+ * This Record contains the state of the
+ * popular photos to be displayed in the grid.
+ *
+ */
+const PopularPhotos = Record({
+  popularPhotos: new (Record({
+    posts: null,
+  }))(),
+  error: null,
+  isFetching: false,
+})
+
+let InitialState = Record({
+  userProfile: new UserProfile(),
+  userPhotos: new UserPhotos(),
+  popularPhotos: new PopularPhotos()
 })
 
 export default InitialState
