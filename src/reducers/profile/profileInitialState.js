@@ -36,7 +36,9 @@ const UserProfile = Record({
  */
 const UserPhotos = Record({
   userPhotos: new (Record({
-    posts: null,
+    result: new (Record({
+      posts: []
+    }))(),
   }))(),
   error: null,
   isFetching: false,
@@ -50,7 +52,9 @@ const UserPhotos = Record({
  */
 const PopularPhotos = Record({
   popularPhotos: new (Record({
-    posts: null,
+    result: new (Record({
+      posts: []
+    }))(),
   }))(),
   error: null,
   isFetching: false,

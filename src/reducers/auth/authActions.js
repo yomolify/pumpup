@@ -190,7 +190,7 @@ export function sessionTokenRequestSuccess (token) {
   }
 }
 export function sessionTokenRequestFailure (error) {
-  console.log('***************************no sessiontoken')
+  console.error('No session token')
   console.log(error)
   return {
     type: SESSION_TOKEN_FAILURE,

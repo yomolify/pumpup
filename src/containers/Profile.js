@@ -1,10 +1,7 @@
 /**
  * # Profile.js
  *
- * This component provides an interface for a logged in user to change
- * their username and email.
- * It too is a container so there is boilerplate from Redux similar to
- * ```App``` and ```Login```
+ * This component
  */
 'use strict'
 /**
@@ -16,15 +13,18 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 /**
- * The actions we need
+ * The actions needed
  */
 import * as profileActions from '../reducers/profile/profileActions'
 import * as globalActions from '../reducers/global/globalActions'
 
+import {getUserProfile, getUserPhotosThumbnails, getPopularPhotosThumbnails} from '../reducers/profile/profileSelectors'
+
+
 /**
  * The necessary React components
  */
-import React, {Component} from 'react'
+import React, {PropTypes, Component} from 'react'
 import
 {
   StyleSheet,
@@ -57,10 +57,14 @@ const styles = StyleSheet.create({
 
 /**
 * ## Redux boilerplate
+* Map state via reselect selectors to props
 */
 
 function mapStateToProps (state) {
   return {
+    userProfile: getUserProfile(state),
+    userPhotos: getUserPhotosThumbnails(state),
+    popularPhotos: getPopularPhotosThumbnails(state),
     profile: state.profile,
     global: {
       currentUser: state.global.currentUser,
@@ -84,27 +88,11 @@ I18n.translations = Translations
 
 class Profile extends Component {
   /**
-   * ## Profile class
-   * Set the initial state and prepare the errorAlert
-   */
-  constructor (props) {
-    super(props)
-    this.state = {
-    }
-  }
-
-  /**
-   * ### componentWillReceiveProps
-   *
-   */
-  componentWillReceiveProps (props) {
-    this.setState({
-    })
-  }
-  /**
    * ### componentDidMount
-   * We need to fetch the user profile -
-   * profileImage, name and bio
+   * Fetch from API
+   * user profile - profileImage, name and bio
+   * user photos - array of thumbnail urls
+   * popular photos - array of thumbnail urls
    */
   componentDidMount () {
     this.props.actions.getUserProfile()
@@ -113,10 +101,14 @@ class Profile extends Component {
   }
 
   /**
-   * ### render
-   * display the form wrapped with the header and button
+   * ### Render
+   * Display the components:
+   * 1. UserProfile: {profileImage, name, bio}
+   * 2. UserPhotosSlider: [thumbnail]
+   * 3. PopularPhotosGrid: [thumbnail]
    */
   render () {
+    const { userProfile, userPhotos, popularPhotos } = this.props
 
     return (
       <View style={styles.container}>
@@ -145,9 +137,17 @@ class Profile extends Component {
           <PopularPhotosGrid props={popularPhotosGrid}/>
         </View> */}
 
-       <Divider style={styles.divider} />
- </View>
+        <Divider style={styles.divider} />
+      </View>
     )
   }
 }
+
+Profile.propTypes = {
+  actions: PropTypes.object.isRequired,
+  userProfile: PropTypes.object,
+  userPhotosSlider: PropTypes.object,
+  popularPhotosGrid: PropTypes.object
+}
+
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)
