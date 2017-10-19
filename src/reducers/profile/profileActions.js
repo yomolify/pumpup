@@ -14,6 +14,14 @@ const {
   GET_USER_PROFILE_SUCCESS,
   GET_USER_PROFILE_FAILURE,
 
+  GET_USER_PHOTOS_REQUEST,
+  GET_USER_PHOTOS_SUCCESS,
+  GET_USER_PHOTOS_FAILURE,
+
+  GET_POPULAR_PHOTOS_REQUEST,
+  GET_POPULAR_PHOTOS_SUCCESS,
+  GET_POPULAR_PHOTOS_FAILURE,
+
   PROFILE_UPDATE_REQUEST,
   PROFILE_UPDATE_SUCCESS,
   PROFILE_UPDATE_FAILURE,
@@ -29,7 +37,7 @@ const BackendFactory = require('../../lib/BackendFactory').default
 import {appAuthToken} from '../../lib/AppAuthToken'
 
 /**
- * ## retreiving profile actions
+ * ## retreiving user profile actions
  */
 export function getUserProfileRequest () {
   return {
@@ -48,8 +56,54 @@ export function getUserProfileFailure (json) {
     payload: json
   }
 }
+
 /**
- * ## State actions
+ * ## retreiving user photos actions
+ *
+ */
+export function getUserPhotosRequest () {
+  return {
+    type: GET_USER_PHOTOS_REQUEST
+  }
+}
+export function getUserPhotosSuccess (json) {
+  return {
+    type: GET_USER_PHOTOS_SUCCESS,
+    payload: json
+  }
+}
+export function getUserPhotosFailure (json) {
+  return {
+    type: GET_USER_PHOTOS_FAILURE,
+    payload: json
+  }
+}
+
+/**
+ * ## retreiving popular photos actions
+ *
+ */
+export function getPopularPhotosRequest () {
+  return {
+    type: GET_POPULAR_PHOTOS_REQUEST
+  }
+}
+export function getPopularPhotosSuccess (json) {
+  return {
+    type: GET_POPULAR_PHOTOS_SUCCESS,
+    payload: json
+  }
+}
+export function getPopularPhotosFailure (json) {
+  return {
+    type: GET_POPULAR_PHOTOS_FAILURE,
+    payload: json
+  }
+}
+
+/**
+ * ## Make API call
+ * getUserProfile
  *
  */
 export function getUserProfile (sessionToken) {
@@ -65,6 +119,49 @@ export function getUserProfile (sessionToken) {
       })
       .catch((error) => {
         dispatch(getUserProfileFailure(error))
+      })
+  }
+}
+
+/**
+ * ## Make API call
+ * getUserPhotos
+ *
+ */
+export function getUserPhotos (sessionToken) {
+  return dispatch => {
+    dispatch(getUserPhotosRequest())
+    // store or get a sessionToken
+    return appAuthToken.getSessionToken(sessionToken)
+      .then((token) => {
+        return BackendFactory(token).getUserPhotos()
+      })
+      .then((json) => {
+        dispatch(getUserPhotosSuccess(json))
+      })
+      .catch((error) => {
+        dispatch(getUserPhotosFailure(error))
+      })
+  }
+}
+/**
+ * ## Make API call
+ * getPopularPhotos
+ *
+ */
+export function getPopularPhotos (sessionToken) {
+  return dispatch => {
+    dispatch(getPopularPhotosRequest())
+    // store or get a sessionToken
+    return appAuthToken.getSessionToken(sessionToken)
+      .then((token) => {
+        return BackendFactory(token).getPopularPhotos()
+      })
+      .then((json) => {
+        dispatch(getPopularPhotosSuccess(json))
+      })
+      .catch((error) => {
+        dispatch(getPopularPhotosFailure(error))
       })
   }
 }
@@ -93,7 +190,7 @@ export function profileUpdateFailure (json) {
  * ## updateProfile
  * @param {string} userId -  objectId
  * @param {string} username - the users name
- * @param {string] email - user's email
+ * @param {string} email - user's email
  * @param {Object} sessionToken - the sessionToken
  *
  * The sessionToken is provided when Hot Loading.

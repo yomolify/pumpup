@@ -108,6 +108,8 @@ class Profile extends Component {
    */
   componentDidMount () {
     this.props.actions.getUserProfile()
+    this.props.actions.getUserPhotos()
+    this.props.actions.getPopularPhotos()
   }
 
   /**

@@ -1,113 +1,53 @@
-Snowflake ![snowflake](https://cloud.githubusercontent.com/assets/1282364/19871941/447b11ea-9f85-11e6-81d6-cb4b70faea6f.png)
+PumpUp 
 ==================================
-A React-Native starter mobile app, or maybe just an example, or maybe a boilerplate (you decide) for iOS and Android with a single code base, with 2 backends to chose from: a Hapi or Parse Server solution- [Demo](#screens)
+A React-Native mobile app, or maybe just an example for iOS and Android with a single code base, with local or remote PumpUp backends to choose from
 
-[![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c072e4c80b2e477591170553b149772b)](https://www.codacy.com/app/bartonhammond/snowflake?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bartonhammond/snowflake&amp;utm_campaign=Badge_Grade)
-[![Join the chat at https://gitter.im/bartonhammond/snowflake](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/bartonhammond/snowflake?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-![iOS](https://img.shields.io/badge/IOS--blue.svg) [![Build Status](https://www.bitrise.io/app/348ae0a97c5e147a.svg?token=RmDwzjeIGuo7i9MeazE1fg)](https://www.bitrise.io/app/348ae0a97c5e147a)
-![Android](https://img.shields.io/badge/Android--blue.svg) [![Build Status](https://www.bitrise.io/app/1e0425744dcc7ce3.svg?token=uvZDZvo89BLXvjrArJJreQ)](https://www.bitrise.io/app/1e0425744dcc7ce3)
-[![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/bartonhammond/snowflake/blob/master/LICENSE)
+[![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/pumpupapp/code/blob/master/Style%20Guides/JavaScript.md)
 [![React Native](https://img.shields.io/badge/react%20native-0.41.2-brightgreen.svg)](https://github.com/facebook/react-native)
 
 ## Installation
 
 * [Install React-Native](https://facebook.github.io/react-native/docs/getting-started.html#content)
 
-### Install Snowflake
+### Install Pumpup
 * Clone snowflake: `git clone https://github.com/bartonhammond/snowflake.git`
 
 * install dependencies
 
 ```
-cd snowflake
+cd pumpup
 
-npm install
+yarn
+
+yarn start
 ```
 
-### Using Snowflake Hapi Server
+### Using PumpUp API Server
 
-#### Use the local or remote Snowflake Hapi Server
-To make things easy for you, the `config.example.js` has been initialized to use the remote **Snowflake Hapi Server** which is running on **Redhat OpenShift**.
+#### Use the local or remote PumpUp API Server
+To make things easy for you, the `config.example.js` has been initialized to use the remote **PumpUp API Server**.
 
-This **Snowflake Hapi Server** is Open Source.  It can run either locally or on **RedHat OpenShift**.  For your convince a server is running at: [https://snowflakeserver-bartonhammond.rhcloud.com](https://snowflakeserver-bartonhammond.rhcloud.com/)
+This **PumpUp API Server** can run either locally or using a remote URL. For your ease, a server is running at: [ http://api.pumpup.com]( http://api.pumpup.com)
 
-Please refer to [https://github.com/bartonhammond/snowflake-hapi-openshift](https://github.com/bartonhammond/snowflake-hapi-openshift) for more information about the code and instructions for installation and setup of the server.
 
 #### The following commands are for the client
 
 *  Copy the ```src/lib/config.example.js``` to ```src/lib/config.js```.  
 * **Note**: the `.gitignore` includes `config.js` from being committed to GitHub
-* **Note**: you must select either  `hapiLocal` or `hapiRemote` for the ```backend``` as shown below with `hapiRemote` set as the default.
+* **Note**: you must select either  `PumpUpAPILocal` or `PumpUpAPIRemote` for the ```backend``` as shown below with `PumpUpAPIRemote` set as the default.
 
 ```
   backend: {
-    hapiLocal: false,
-    hapiRemote: true,
-    parseLocal: false,
-    parseRemote: false
+    PumpUpAPILocal: false,
+    PumpUpAPIRemote: true,
   },
 ```
-* To run Hapi locally, follow the instructions at [https://github.com/bartonhammond/snowflake-hapi-openshift](https://github.com/bartonhammond/snowflake-hapi-openshift).  You will have to install **MongoDB** and **Redis**.
-* **Note**: The default is to run remotely on the **RedHat OpenShift Snowflake Server** so there is nothing more to do if you want to use it! In that case, just use the `config.js` as is.
-* If you want to install and run  the **Snowflake Hapi Server** locally, then update the ```src/lib/config.js``` file as shown below.  
-* **Note**: use the ip from the `ifconfig` command for the `local`. This ip matches the **Snowflake Hapi Server** setup.
-*  An example of the `url` is shown below assuming the `ifconfig` shows the local ip to be `192.168.0.5`
-* **Note**: You don't have to provide the `local.url` value if you are using the `remote`
-
-```
-  HAPI: {
-    local: {
-      url: 'http://192.168.0.5:5000'
-    },
-    remote: {
-      url: 'https://snowflakeserver-bartonhammond.rhcloud.com/'
-    }
-  }
-
-```
-
-### Using Parse Server
-This **Snowflake Parse Heroku Server** is Open Source.  It can run either locally or on **Heroku**.  For your convince a server is running at: [https://snowflake-parse.herokuapp.com/parse](https://snowflake-parse.herokuapp.com/parse)
-
-Please refer to [https://github.com/bartonhammond/snowflake-parse-heroku](https://github.com/bartonhammond/snowflake-parse-heroku) for more information about the code and instructions for installation and setup of the server.
-
-#### The following instructions are for the client
-* Copy the ```src/lib/config.example.js``` to ```src/lib/config.js```.  
-* **Note**: the `.gitignore` includes `config.js` from being committed to GitHub
-* Set `parseLocal` to true if you are running a local instance of parse-server
-* Otherwise, set `parseRemote` to true to indicate your parse server instance is hosted in the cloud
-
-```
-  backend: {
-    hapiLocal: false,
-    hapiRemote: false,
-    parseLocal: true,
-    parseRemote: false
-  },
-```
-
-* To setup parse-server, follow the instructions at https://github.com/ParsePlatform/parse-server-example
-* Set the `local.url` value if you are running parse-server `local`
-* Set the `remote.url` value if you are running parse-server `remote`
-
-```
-  PARSE: {
-    appId: 'snowflake',                              // match APP_ID in parse-server's index.js
-    local: {
-    	url: 'http://localhost:1337/parse'             // match SERVER_URL in parse-server's index.js
-    },
-    remote: {
-    	url: 'https://enter_your_snowflake_host.com'   // match SERVER_URL in parse-server's index.js
-    }
-  }
-
-```
+* **Note**: The default is to run remotely on the **PumpUpAPIRemote Server** so there is nothing more to do if you want to use it! In that case, just use the `config.js` as is.
 
 ### To run:
 * For iOS, from the command line, run via command: ```react-native run-ios``` or open XCode and load project, Run ```Product -> Run (⌘+R)```
 * For Android, from the command line, run via the command: ```react-native run-android``` assuming you have an emulator or device running and attached
-* To run Jest, ```npm test```
+* To run tests, ```npm test```
 * To debug Jest unit cases, install [node_inspector](https://github.com/node-inspector/node-inspector) and run ```npm run test-chrome```
 * Enjoy!
 
@@ -132,25 +72,14 @@ Using [Redux](https://github.com/reactjs/react-redux) and [Immutable](https://fa
 
 To ease the pain of Redux Action definitions, Snowflake uses [Key Mirror](https://github.com/STRML/keyMirror).
 
-Using the [Validate.JS](https://validatejs.org/) Library, all **user input is validated**.  Appropriate messages are displayed to the user guiding them in the input requirements.
-
 Once a user is logged in, their **Session State is stored** in [AsyncStorage](https://github.com/jasonmerino/react-native-simple-store) so that subsequent usage does not require logging in again.
 
-Snowflake supports **multiple languages** using [I18n](https://github.com/AlexanderZaytsev/react-native-i18n) with English, French and Spanish.
+This project supports **multiple languages** using [I18n](https://github.com/AlexanderZaytsev/react-native-i18n) with English, French and Spanish.
 
-Snowflake supports **Hot Reloading** of its state.  
+This project supports **Hot Reloading** of its state.  
 
-Snowflake uses CI with [Bitrise.io]( https://www.bitrise.io) and has **extensive docs and 45+ min of video** demonstating implementation.
+This project uses CI with [Bitrise.io]( https://www.bitrise.io) and has **extensive docs and 45+ min of video** demonstating implementation.
 
-Snowflake has a **choice of servers**, either
-
-* **Hapi Server** that runs on **RedHat Openshift** and **locally**.
-
-    See [https://github.com/bartonhammond/snowflake-hapi-openshift](https://github.com/bartonhammond/snowflake-hapi-openshift) for more information about the OpenShift Hapi server.  The setup instructions below describe how to select the server you desire.  
-
-* **Parse Server** that runs **remotely** or **locally**
-
-    See [https://github.com/ParsePlatform/parse-server-example](https://github.com/ParsePlatform/parse-server-example) for more information.
 
 ---------------
 # Content

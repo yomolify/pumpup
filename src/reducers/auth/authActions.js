@@ -137,7 +137,6 @@ export function logout () {
         dispatch(loginState())
         dispatch(logoutSuccess())
         dispatch(deleteSessionToken())
-        Actions.InitialLoginForm()
       })
 
       .catch((error) => {
@@ -192,6 +191,7 @@ export function sessionTokenRequestSuccess (token) {
 }
 export function sessionTokenRequestFailure (error) {
   console.log('***************************no sessiontoken')
+  console.log(error)
   return {
     type: SESSION_TOKEN_FAILURE,
     payload: _.isUndefined(error) ? null : error
@@ -244,14 +244,12 @@ export function getSessionToken (sessionToken) {
           Actions.Tabbar()
         } else {
           dispatch(sessionTokenRequestFailure())
-          Actions.InitialLoginForm()
         }
       })
 
       .catch((error) => {
         dispatch(sessionTokenRequestFailure(error))
         dispatch(loginState())
-        Actions.InitialLoginForm()
       })
   }
 }

@@ -37,7 +37,7 @@ export class PumpUpAPI extends Backend {
   }
 
   /**
-   * ### getProfile
+   * ### getUserProfile
    * Using the sessionToken, we'll get everything about
    * the current user.
    * @return {Object}
@@ -70,10 +70,15 @@ export class PumpUpAPI extends Backend {
 
     return await this._fetch({
       method: 'POST',
-      url: '/classes/User/318381'
+      url: '/classes/User/318381',
+      body: {
+        _method: 'GET',
+        _version: '5.0.5',
+        _SessionToken: this._sessionToken.sessionToken
+      }
     })
       .then((res) => {
-        console.log('response is', res)
+        console.log('getUserProfile response is', res)
 
         if ((res.status === 200 || res.status === 201)) {
           return res.json
@@ -88,6 +93,120 @@ export class PumpUpAPI extends Backend {
       })
   }
 
+    /**
+   * ### getUserPhotos
+   * Using the sessionToken, we'll get the
+   * user feed photos for the slider
+   * @return {Object}
+   * if good:
+   * {result: {
+   *      posts: [{
+   *            createdAt: "2016-09-16T22:18:13.091Z",
+   *            thumbnail: "http://thumbnail-url1.com",
+   *            className: "Post",
+   *           objectId: 17517155,
+   *          "__type: "Object"},
+   *         {createdAt: "2016-03-23T20:42:20.304Z",
+   *            thumbnail: "http://thumbnail-url2.com",
+   *            className: "Post",
+   *           objectId: 16080756,
+   *          "__type: "Object"},
+   *         ...
+   *         ...
+   *            ]
+   *         }
+   * }
+   *
+   * if error: {code: xxx, error: 'message'}
+   */
+  async getUserPhotos () {
+
+    return await this._fetch({
+      method: 'POST',
+      url: '/functions/feed/profile/load-batch',
+      body: {
+        isThumbnailsOnly: true,
+        limit: 5,
+        userId: 2707798,
+        _method: 'POST',
+        _version: '5.0.5',
+        _SessionToken: this._sessionToken.sessionToken
+      }
+
+    })
+      .then((res) => {
+        console.log('getUserPhotos response is', res)
+
+        if ((res.status === 200 || res.status === 201)) {
+          return res.json
+        } else {
+          throw (res.json)
+        }
+      })
+      .catch((error) => {
+        console.log('PumpUpAPI Error')
+        console.log(error)
+        throw (error)
+      })
+  }
+
+
+
+    /**
+   * ### getPopularPhotos
+   * Using the sessionToken, we'll get the
+   * popular feed photos for the grid
+   * @return {Object}
+   * if good:
+   * {result: {
+   *      posts: [{
+   *           createdAt: "2016-09-16T22:18:13.091Z",
+   *           thumbnail: "http://thumbnail-url1.com",
+   *           className: "Post",
+   *           objectId: 17517155,
+   *           __type: "Object"},
+   *         {createdAt: "2016-03-23T20:42:20.304Z",
+   *           thumbnail: "http://thumbnail-url2.com",
+   *           className: "Post",
+   *           objectId: 16080756,
+   *           __type: "Object"},
+   *         ...
+   *         ...
+   *            ]
+   *         }
+   * }
+   *
+   * if error: {code: xxx, error: 'message'}
+   */
+  async getPopularPhotos () {
+
+    return await this._fetch({
+      method: 'POST',
+      url: '/functions/feed/popular/load-batch',
+      body: {
+        isThumbnailsOnly: true,
+        limit: 18,
+        _method: 'POST',
+        _version: '5.0.5',
+        _SessionToken: this._sessionToken.sessionToken
+      }
+
+    })
+      .then((res) => {
+        console.log('getPopularPhotos response is', res)
+
+        if ((res.status === 200 || res.status === 201)) {
+          return res.json
+        } else {
+          throw (res.json)
+        }
+      })
+      .catch((error) => {
+        console.log('PumpUpAPI Error')
+        console.log(error)
+        throw (error)
+      })
+  }
   /**
    * ### _fetch
    * A function that prepares the request by
@@ -104,11 +223,7 @@ export class PumpUpAPI extends Backend {
     opts = _.extend({
       method: 'GET',
       url: null,
-      body: {
-        _method: 'GET',
-        _version: '5.0.5',
-        _SessionToken: this._sessionToken.sessionToken
-      },
+
       callback: null
     }, opts)
 
