@@ -11,10 +11,10 @@
 /**
  * ## Imports
  *
- * Config for defaults and underscore for a couple of features
+ * Config for defaults and lodash for a couple of features
  */
 import CONFIG from './config'
-import _ from 'underscore'
+import _ from 'lodash'
 import Backend from './Backend'
 
 export class PumpUpAPI extends Backend {

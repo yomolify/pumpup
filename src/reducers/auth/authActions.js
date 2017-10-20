@@ -55,7 +55,7 @@ import {Actions} from 'react-native-router-flux'
 
 import {appAuthToken} from '../../lib/AppAuthToken'
 
-const _ = require('underscore')
+const _ = require('lodash')
 
 /**
  * ## State actions

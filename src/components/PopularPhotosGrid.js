@@ -1,8 +1,9 @@
 /**
- * ## UserProfile.js
+ * ## popularPhotos.js
  *
- * # Display user's avatar, name and a bio snippet with a read more button
+ * # Display Popular Feed Photos as a grid
  */
+
 'use strict'
 /**
  * ## Imports
@@ -12,75 +13,96 @@ import React, {PropTypes} from 'react'
 import {
   StyleSheet,
   View,
-  Text
+  Dimensions,
+  Image
 } from 'react-native'
 
-import {Avatar} from 'react-native-elements'
+import _ from 'lodash'
 
-// componentWillReceiveProps(nextProps) {
-//   // update original states
-//   this.setState({
-//     latitude: nextProps.latitude,
-//   });
-// }
 /**
  * ## Styles
  */
 const styles = StyleSheet.create({
   container: {
+    marginTop: 50
+  },
+  placeholder: {
+    backgroundColor: '#DDDDDD'
+  },
+  row: {
     flexDirection: 'row'
   },
-  avatar: {
-    flex: 1
-  },
-  info: {
-    flex: 3
+  item: {
+    marginRight:2,
+    marginTop:2
   }
+
 })
 
+const windowWidth = Dimensions.get('window').width
 
-const UserProfile = React.createClass({
+const popularPhotosGrid = React.createClass({
+
 
   propTypes: {
-    userProfile: PropTypes.object,
-    profileImage: PropTypes.string,
-    name: PropTypes.string,
-    bio: PropTypes.string,
+    popularPhotos: PropTypes.array,
+    photos: PropTypes.array,
     props: PropTypes.object,
   },
 
   /**
-   * ### render
+   * ### Render
    *
-   * @return {Component} Display the Button
+   * @return {Component} Display the popular feed photos grid
    */
   render() {
-    // const { profileImage, name, bio } = this.props.userProfile
-    // console.log("UserProfile.js profileImage is:")
-    // console.log(profileImage)
+    const { popularPhotos } = this.props
+    const size = {width: windowWidth, height: windowWidth}
+
+    const placeholder = [0].map(
+      (photo, i) => {
+        return (
+        <View key={i} style={[styles.placeholder, size]}>
+        </View>
+        )
+      }
+    )
+
+    const photosRecieved = Boolean(popularPhotos[0])
+
+    const IMAGES_PER_ROW = 3
+
+    const calculatedSize = function(){
+      const size = windowWidth / IMAGES_PER_ROW
+      return {width: size, height: size}
+    }
+
+    const renderRow = function(images) {
+      return images.map((uri,i) =>{
+        return(
+          <Image key={i} style={[styles.item, calculatedSize()]} source={{uri: uri}} />
+        )
+      })
+    }
+
+    const renderImagesInGroupsOf = function(count) {
+      return _.chunk(popularPhotos, IMAGES_PER_ROW).map((imagesForRow, i) => {
+        return (
+          <View style={styles.row} key={i}>
+            {renderRow(imagesForRow)}
+          </View>
+        )
+      })
+    }
+
+    let images = renderImagesInGroupsOf(3)
 
     return (
       <View style={styles.container}>
-        {/* <View style={styles.avatar}>
-          <Avatar
-            large
-            rounded
-            source={{uri: profileImage}}
-            onPress={() => console.log('Works!')}
-            activeOpacity={0.7}/>
-        </View>
-        <View style={styles.info}>
-          <View style={styles.name}>
-            <Text>{name}</Text>
-          </View>
-
-          <View style={styles.bio}>
-            <Text>{bio}</Text>
-          </View>
-        </View> */}
+        {photosRecieved ? images : placeholder}
       </View>
     )
   }
 })
 
-module.exports = UserProfile
+module.exports = popularPhotosGrid

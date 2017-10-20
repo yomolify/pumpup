@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
 
 const { width } = Dimensions.get('window')
 
-const UserProfile = React.createClass({
+const UserPhotosSlider = React.createClass({
 
 
   propTypes: {
@@ -101,4 +101,4 @@ const UserProfile = React.createClass({
   }
 })
 
-module.exports = UserProfile
+module.exports = UserPhotosSlider

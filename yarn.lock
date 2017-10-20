@@ -4084,18 +4084,6 @@ react-native-navbar@1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/react-native-navbar/-/react-native-navbar-1.6.0.tgz#27f42a933107d12f5ef86e7056f7c3f5dd4fe3b0"
 
-react-native-photo-browser@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/react-native-photo-browser/-/react-native-photo-browser-0.3.1.tgz#4adfebf3ec090d10ca36ae497b1633f6d437bb35"
-  dependencies:
-    react-native-progress "^3.2.0"
-
-react-native-progress@^3.2.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/react-native-progress/-/react-native-progress-3.4.0.tgz#c002e6efb2f0b82dd6889510e669c492da2718ac"
-  dependencies:
-    prop-types "^15.5.8"
-
 react-native-router-flux@3.37.0:
   version "3.37.0"
   resolved "https://registry.yarnpkg.com/react-native-router-flux/-/react-native-router-flux-3.37.0.tgz#18e8fd3e1e6dbdc4d8340cd47313c28bb9bb1caf"
@@ -5176,10 +5164,6 @@ ultron@1.0.x:
 undefined@0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/undefined/-/undefined-0.1.0.tgz#9b706a4b32ad30c20ca4fe65ddcbbbdac32bded0"
-
-underscore@1.8.3:
-  version "1.8.3"
-  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.8.3.tgz#4f3fb53b106e6097fcf9cb4109f2a5e9bdfa5022"
 
 "unicode@>= 0.3.1":
   version "10.0.0"

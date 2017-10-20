@@ -36,34 +36,17 @@ const styles = StyleSheet.create({
 
 const UserProfile = React.createClass({
 
-  // propTypes: {
-  //   userProfile: PropTypes.object,
-  //   profileImage: PropTypes.string,
-  //   name: PropTypes.string,
-  //   bio: PropTypes.string,
-  //   props: PropTypes.object,
-  // },
+  propTypes: {
+    userProfile: PropTypes.object,
+    profileImage: PropTypes.string,
+    name: PropTypes.string,
+    bio: PropTypes.string,
+    props: PropTypes.object,
+  },
 
   _handleTextReady () {
     console.log('ready!')
   },
-
-  // _renderTruncatedFooter (handlePress) {
-  //   return (
-  //     <View style={{color: "blue", marginTop: 5}} onPress={handlePress}>
-  //       Read more
-  //     </View>
-  //   )
-  // },
-
-  // _renderRevealedFooter (handlePress) {
-  //   return (
-  //     <View style={{color: "blue", marginTop: 5}} onPress={handlePress}>
-  //       Show less
-  //     </View>
-  //   )
-  // },
-
 
   /**
    * ### Render
