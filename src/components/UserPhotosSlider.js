@@ -1,8 +1,9 @@
 /**
- * ## UserProfile.js
+ * ## UserPhotos.js
  *
- * # Display user's avatar, name and a bio snippet with a read more button
+ * # Display User Feed Photos
  */
+
 'use strict'
 /**
  * ## Imports
@@ -12,56 +13,89 @@ import React, {PropTypes} from 'react'
 import {
   StyleSheet,
   View,
-  Text
+  Dimensions,
+  Image
 } from 'react-native'
 
-// import Carousel from 'react-native-snap-carousel'
+import Carousel from 'react-native-looped-carousel'
 
-// componentWillReceiveProps(nextProps) {
-//   // update original states
-//   this.setState({
-//     latitude: nextProps.latitude,
-//   });
-// }
 /**
  * ## Styles
  */
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row'
   },
-  avatar: {
-    flex: 1
+  placeholder: {
+    backgroundColor: '#DDDDDD'
   },
-  info: {
-    flex: 3
-  }
+  photoSlides: {
+    backgroundColor: 'transparent'
+  },
+  bulletsContainerStyle: {
+    marginBottom: -100
+  },
+  chosenBulletStyle: {
+    backgroundColor: '#767676'
+  },
+  bulletStyle: {
+    backgroundColor: '#DDDDDD'
+  },
+
 })
 
+const { width } = Dimensions.get('window')
 
 const UserProfile = React.createClass({
 
+
   propTypes: {
-    userProfile: PropTypes.object,
-    profileImage: PropTypes.string,
-    name: PropTypes.string,
-    bio: PropTypes.string,
+    userPhotos: PropTypes.array,
+    photos: PropTypes.array,
     props: PropTypes.object,
   },
 
   /**
-   * ### render
+   * ### Render
    *
-   * @return {Component} Display the Button
+   * @return {Component} Display the sliding user feed photos
    */
   render() {
-    // const { profileImage, name, bio } = this.props.userProfile
-    // console.log("UserProfile.js profileImage is:")
-    // console.log(profileImage)
+    const { userPhotos } = this.props
+    let size = {width: width, height: width}
+
+    let placeholder = [0].map(
+      (photo, i) => {
+        return (
+        <View key={i} style={[styles.placeholder, size]}>
+        </View>
+        )
+      }
+    )
+
+    let photosRecieved = Boolean(userPhotos[0])
+
+    let photoSlides = userPhotos.map(
+      (photo, i) => {
+        return (
+        <View key={i} style={[styles.photoSlides, size]}>
+          <Image key={'image-' + i} source={{uri: photo}} style={size}/>
+        </View>
+        )
+      }
+    )
 
     return (
       <View style={styles.container}>
-
+        <Carousel
+            style={size}
+            autoplay={false}
+            bullets={true}
+            bulletsContainerStyle={styles.bulletsContainerStyle}
+            chosenBulletStyle={styles.chosenBulletStyle}
+            bulletStyle={styles.bulletStyle}
+          >
+          {photosRecieved ? photoSlides : placeholder}
+        </Carousel>
       </View>
     )
   }

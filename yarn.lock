@@ -3244,6 +3244,10 @@ lodash.clonedeep@^3.0.0:
     lodash._baseclone "^3.0.0"
     lodash._bindcallback "^3.0.0"
 
+lodash.debounce@4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
+
 lodash.escape@^3.0.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/lodash.escape/-/lodash.escape-3.2.0.tgz#995ee0dc18c1b48cc92effae71a10aab5b487698"
@@ -4072,6 +4076,10 @@ react-native-i18n@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-native-i18n/-/react-native-i18n-1.0.0.tgz#0c407d9ebb846aae1aa5e05de6503008553f02fd"
 
+react-native-looped-carousel@^0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/react-native-looped-carousel/-/react-native-looped-carousel-0.1.7.tgz#9e81aec732039250568e367383d0bd70ba4173e9"
+
 react-native-navbar@1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/react-native-navbar/-/react-native-navbar-1.6.0.tgz#27f42a933107d12f5ef86e7056f7c3f5dd4fe3b0"
@@ -4113,10 +4121,11 @@ react-native-simpledialog-android@1.0.8:
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/react-native-simpledialog-android/-/react-native-simpledialog-android-1.0.8.tgz#b4c5fd576c686ce79d787e1efd8f2524728326ec"
 
-react-native-snap-carousel@^3.3.4:
-  version "3.3.4"
-  resolved "https://registry.yarnpkg.com/react-native-snap-carousel/-/react-native-snap-carousel-3.3.4.tgz#40a7763ec40bed325cfade836e7f306c4a0a2541"
+react-native-snap-carousel@2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-snap-carousel/-/react-native-snap-carousel-2.4.0.tgz#e0711cc804ca5b11f1c154ba61f5884512a27a71"
   dependencies:
+    lodash.debounce "4.0.8"
     prop-types "^15.5.10"
     react-addons-shallow-compare "15.6.0"
 

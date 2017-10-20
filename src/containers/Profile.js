@@ -28,7 +28,8 @@ import React, {PropTypes, Component} from 'react'
 import
 {
   StyleSheet,
-  View
+  View,
+  ScrollView
 }
 from 'react-native'
 import { Header, Divider } from 'react-native-elements'
@@ -116,7 +117,7 @@ class Profile extends Component {
     const { userProfile, userPhotos, popularPhotos } = this.props
 
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <Header
         centerComponent={{ text: 'PumpUp', style: { color: '#333' } }}
         outerContainerStyles={{position: 'relative'}}/>
@@ -143,7 +144,7 @@ class Profile extends Component {
         </View>
 
         <Divider style={styles.divider} />
-      </View>
+      </ScrollView>
     )
   }
 }
