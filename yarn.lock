@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@expo/react-native-read-more-text@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@expo/react-native-read-more-text/-/react-native-read-more-text-1.1.0.tgz#0cb0006fb1c6b771c8c47bc88fd34300cd40e3f1"
+
 abab@^1.0.3:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.4.tgz#5faad9c2c07f60dd76770f71cf025b62a63cfd4e"
@@ -4005,6 +4009,13 @@ react-addons-pure-render-mixin@^15.0.2:
     fbjs "^0.8.4"
     object-assign "^4.1.0"
 
+react-addons-shallow-compare@15.6.0:
+  version "15.6.0"
+  resolved "https://registry.yarnpkg.com/react-addons-shallow-compare/-/react-addons-shallow-compare-15.6.0.tgz#b7a4e5ff9f2704c20cf686dd8a05dd08b26de252"
+  dependencies:
+    fbjs "^0.8.4"
+    object-assign "^4.1.0"
+
 react-addons-test-utils@15.4.2:
   version "15.4.2"
   resolved "https://registry.yarnpkg.com/react-addons-test-utils/-/react-addons-test-utils-15.4.2.tgz#93bcaa718fcae7360d42e8fb1c09756cc36302a2"
@@ -4065,6 +4076,18 @@ react-native-navbar@1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/react-native-navbar/-/react-native-navbar-1.6.0.tgz#27f42a933107d12f5ef86e7056f7c3f5dd4fe3b0"
 
+react-native-photo-browser@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/react-native-photo-browser/-/react-native-photo-browser-0.3.1.tgz#4adfebf3ec090d10ca36ae497b1633f6d437bb35"
+  dependencies:
+    react-native-progress "^3.2.0"
+
+react-native-progress@^3.2.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-progress/-/react-native-progress-3.4.0.tgz#c002e6efb2f0b82dd6889510e669c492da2718ac"
+  dependencies:
+    prop-types "^15.5.8"
+
 react-native-router-flux@3.37.0:
   version "3.37.0"
   resolved "https://registry.yarnpkg.com/react-native-router-flux/-/react-native-router-flux-3.37.0.tgz#18e8fd3e1e6dbdc4d8340cd47313c28bb9bb1caf"
@@ -4089,6 +4112,13 @@ react-native-simple-store@1.1.0:
 react-native-simpledialog-android@1.0.8:
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/react-native-simpledialog-android/-/react-native-simpledialog-android-1.0.8.tgz#b4c5fd576c686ce79d787e1efd8f2524728326ec"
+
+react-native-snap-carousel@^3.3.4:
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/react-native-snap-carousel/-/react-native-snap-carousel-3.3.4.tgz#40a7763ec40bed325cfade836e7f306c4a0a2541"
+  dependencies:
+    prop-types "^15.5.10"
+    react-addons-shallow-compare "15.6.0"
 
 react-native-tab-navigator@^0.3.4:
   version "0.3.4"

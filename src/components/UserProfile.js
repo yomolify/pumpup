@@ -16,6 +16,7 @@ import {
 } from 'react-native'
 
 import {Avatar} from 'react-native-elements'
+import ReadMore from '@expo/react-native-read-more-text'
 
 /**
  * ## Styles
@@ -35,13 +36,34 @@ const styles = StyleSheet.create({
 
 const UserProfile = React.createClass({
 
-  propTypes: {
-    userProfile: PropTypes.object,
-    profileImage: PropTypes.string,
-    name: PropTypes.string,
-    bio: PropTypes.string,
-    props: PropTypes.object,
+  // propTypes: {
+  //   userProfile: PropTypes.object,
+  //   profileImage: PropTypes.string,
+  //   name: PropTypes.string,
+  //   bio: PropTypes.string,
+  //   props: PropTypes.object,
+  // },
+
+  _handleTextReady () {
+    console.log('ready!')
   },
+
+  // _renderTruncatedFooter (handlePress) {
+  //   return (
+  //     <View style={{color: "blue", marginTop: 5}} onPress={handlePress}>
+  //       Read more
+  //     </View>
+  //   )
+  // },
+
+  // _renderRevealedFooter (handlePress) {
+  //   return (
+  //     <View style={{color: "blue", marginTop: 5}} onPress={handlePress}>
+  //       Show less
+  //     </View>
+  //   )
+  // },
+
 
   /**
    * ### Render
@@ -53,6 +75,7 @@ const UserProfile = React.createClass({
 
     return (
       <View style={styles.container}>
+
         <View style={styles.avatar}>
           <Avatar
             large
@@ -61,15 +84,28 @@ const UserProfile = React.createClass({
             onPress={() => console.log('Works!')}
             activeOpacity={0.7}/>
         </View>
+
         <View style={styles.info}>
+
           <View style={styles.name}>
             <Text>{name}</Text>
           </View>
 
           <View style={styles.bio}>
-            <Text>{bio}</Text>
+            <ReadMore
+              numberOfLines={3}
+              onReady={this._handleTextReady}>
+              <Text style={styles.cardText}>
+              {bio}
+                Lorem ipsum
+                dolor sit amet, consectetur adipiscing elit, sed do
+                sunt in culpa qui officia deserunt mollit anim id est laborum
+              </Text>
+            </ReadMore>
           </View>
+
         </View>
+
       </View>
     )
   }

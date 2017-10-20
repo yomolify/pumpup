@@ -15,7 +15,7 @@ import {
   Text
 } from 'react-native'
 
-import {Avatar} from 'react-native-elements'
+// import Carousel from 'react-native-snap-carousel'
 
 // componentWillReceiveProps(nextProps) {
 //   // update original states
@@ -61,23 +61,7 @@ const UserProfile = React.createClass({
 
     return (
       <View style={styles.container}>
-        {/* <View style={styles.avatar}>
-          <Avatar
-            large
-            rounded
-            source={{uri: profileImage}}
-            onPress={() => console.log('Works!')}
-            activeOpacity={0.7}/>
-        </View>
-        <View style={styles.info}>
-          <View style={styles.name}>
-            <Text>{name}</Text>
-          </View>
 
-          <View style={styles.bio}>
-            <Text>{bio}</Text>
-          </View>
-        </View> */}
       </View>
     )
   }
