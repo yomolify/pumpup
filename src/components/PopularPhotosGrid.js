@@ -24,7 +24,7 @@ import _ from 'lodash'
  */
 const styles = StyleSheet.create({
   container: {
-    marginTop: 50
+    marginTop: -1
   },
   placeholder: {
     backgroundColor: '#DDDDDD'

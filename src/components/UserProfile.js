@@ -17,6 +17,7 @@ import {
 
 import {Avatar} from 'react-native-elements'
 import ReadMore from '@expo/react-native-read-more-text'
+import Hyperlink from 'react-native-hyperlink'
 
 /**
  * ## Styles
@@ -78,12 +79,20 @@ const UserProfile = React.createClass({
             <ReadMore
               numberOfLines={3}
               onReady={this._handleTextReady}>
+
+              <Hyperlink linkDefault={ true }>
+                <Text style={ { fontSize: 15 } }>
+                  This text will be parsed to check for clickable strings like https://pumpup.com and made clickable.
+                </Text>
+              </Hyperlink>
+              {/* <Hyperlink>
               <Text style={styles.cardText}>
               {bio}
                 Lorem ipsum
-                dolor sit amet, consectetur adipiscing elit, sed do
-                sunt in culpa qui officia deserunt mollit anim id est laborum
+                dolor sit amet, consectetur adipiscing
+                sunt in culpa qui officia d
               </Text>
+              </Hyperlink> */}
             </ReadMore>
           </View>
 

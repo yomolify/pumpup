@@ -24,6 +24,7 @@ import Carousel from 'react-native-looped-carousel'
  */
 const styles = StyleSheet.create({
   container: {
+    height: width+100
   },
   placeholder: {
     backgroundColor: '#DDDDDD'

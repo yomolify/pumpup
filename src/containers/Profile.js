@@ -58,6 +58,10 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   userPhotosSlider: {
+    marginBottom: 50
+  },
+  popularPhotosGrid: {
+    // marginBottom: 50
   }
 })
 
@@ -135,8 +139,6 @@ class Profile extends Component {
         <View style={styles.userPhotosSlider}>
           <UserPhotosSlider userPhotos={userPhotos}/>
         </View>
-
-        <Divider style={styles.divider} />
 
         {/* Popular Feed  Photos  (Grid) */}
         <View style={styles.popularPhotosGrid}>
