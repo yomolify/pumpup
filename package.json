@@ -25,12 +25,11 @@
     },
     "dependencies": {
         "@expo/react-native-read-more-text": "^1.1.0",
-        "apsl-react-native-button": "3.0.2",
         "immutable": "3.8.1",
         "key-mirror": "1.0.1",
+        "linkify-it": "^2.0.3",
         "lodash": "^4.17.4",
         "mocha": "^4.0.1",
-        "parse": "1.8.5",
         "react": "15.4.2",
         "react-dom": "15.4.2",
         "react-mixin": "3.0.5",
@@ -51,9 +50,7 @@
         "redux-thunk": "2.2.0",
         "regenerator": "0.8.46",
         "reselect": "^3.0.1",
-        "tcomb-form-native": "0.6.5",
-        "undefined": "0.1.0",
-        "validate.js": "0.10.0"
+        "undefined": "0.1.0"
     },
     "devDependencies": {
         "babel-core": "6.17.0",
@@ -76,7 +73,7 @@
     },
     "description": "Pumpup Challenge",
     "main": "index.js",
-    "repository": "https://github.com/yomolify/pumpup-profile.git",
+    "repository": "https://github.com/yomolify/pumpup.git",
     "author": "Amol Sidhu <sidhu.amol@gmail.com>",
     "license": "MIT"
 }
