@@ -60,12 +60,12 @@ const UserProfile = React.createClass({
       <View style={styles.container}>
 
         <View style={styles.avatar}>
-          <Avatar
+          {profileImage && <Avatar
             large
             rounded
             source={{uri: profileImage}}
             onPress={() => console.log('Works!')}
-            activeOpacity={0.7}/>
+            activeOpacity={0.7}/>}
         </View>
 
         <View style={styles.info}>
