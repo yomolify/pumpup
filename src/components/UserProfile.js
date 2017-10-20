@@ -12,12 +12,14 @@ import React, {PropTypes} from 'react'
 import {
   StyleSheet,
   View,
-  Text
+  Text,
+  Alert
 } from 'react-native'
 
 import {Avatar} from 'react-native-elements'
 import ReadMore from '@expo/react-native-read-more-text'
 import Hyperlink from 'react-native-hyperlink'
+import linkify from '../lib/linkify'
 
 /**
  * ## Styles
@@ -31,9 +33,28 @@ const styles = StyleSheet.create({
   },
   info: {
     flex: 3
+  },
+  name: {
+    fontSize: 15,
+    fontWeight: 'bold'
+  },
+  bio: {
+    marginTop: 10
+  },
+  link: {
+    color: '#2980b9'
   }
 })
-
+let alertUrl = function (url) {
+  return Alert.alert(
+    'Hyperlink',
+    url + ' pressed',
+    [
+      {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+      {text: 'OK', onPress: () => console.log('OK Pressed')},
+    ]
+  )
+}
 
 const UserProfile = React.createClass({
 
@@ -57,6 +78,10 @@ const UserProfile = React.createClass({
   render() {
     const { profileImage, name, bio } = this.props.userProfile
 
+    let placeholder = <Text>Hi there buddy,
+      Fetching the user profile fresh from the oven, only for you!
+      Alrighty it's almost here now, here we go!</Text>
+
     return (
       <View style={styles.container}>
 
@@ -65,35 +90,25 @@ const UserProfile = React.createClass({
             large
             rounded
             source={{uri: profileImage}}
-            onPress={() => console.log('Works!')}
+            onPress={() => console.log('Show full screen avatar')}
             activeOpacity={0.7}/>}
         </View>
 
         <View style={styles.info}>
-
-          <View style={styles.name}>
-            <Text>{name}</Text>
-          </View>
+          <Text style={styles.name}>{name}</Text>
 
           <View style={styles.bio}>
-            <ReadMore
-              numberOfLines={3}
-              onReady={this._handleTextReady}>
-
-              <Hyperlink linkDefault={ true }>
-                <Text style={ { fontSize: 15 } }>
-                  This text will be parsed to check for clickable strings like https://pumpup.com and made clickable.
-                </Text>
-              </Hyperlink>
-              {/* <Hyperlink>
-              <Text style={styles.cardText}>
-              {bio}
-                Lorem ipsum
-                dolor sit amet, consectetur adipiscing
-                sunt in culpa qui officia d
-              </Text>
-              </Hyperlink> */}
-            </ReadMore>
+            <Hyperlink onPress={ url => alertUrl(url) }
+                linkify={linkify}
+                linkStyle={styles.link}>
+              <ReadMore
+                  numberOfLines={3}
+                  onReady={this._handleTextReady}>
+                  <Text style={ { fontSize: 15 } }>
+                    {bio ? bio : placeholder}
+                  </Text>
+              </ReadMore>
+            </Hyperlink>
           </View>
 
         </View>
