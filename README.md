@@ -1,4 +1,5 @@
-#Pumpup ![pumpup](https://d1m37qdzmw041i.cloudfront.net/photos/users/profile/image/318381-1505247817263.jpg)
+# Pumpup 
+![pumpup](https://d1m37qdzmw041i.cloudfront.net/photos/users/profile/image/318381-1505247817263.jpg)
 
 ----------
 
@@ -52,11 +53,36 @@ This **Pumpup Api Server** can run either locally or using a remote URL. For you
 
 ## Screens
 
-**Welcome Screen:** ![Welcome Screen](https://i.imgur.com/YFdzJvN.png)  
-**Read More:** ![Read More](https://i.imgur.com/muqKdEa.png) 
-**Parsing Hashtags:** ![Parsing Hashtags](https://i.imgur.com/ltpBeZq.png)
-**User Photos Slider:** ![User Photos Slider](https://i.imgur.com/f7xRCzb.png)
-**Popular Photos Grid:** ![Popular Photos Grid](https://i.imgur.com/3VmCCAK.jpg)
+**Welcome Screen:**
+
+![Welcome Screen](https://i.imgur.com/YFdzJvN.png)  
+
+----------
+
+**Read More:** 
+
+![Read More](https://i.imgur.com/muqKdEa.png) 
+
+----------
+
+**Parsing Hashtags:** 
+
+![Parsing Hashtags](https://i.imgur.com/ltpBeZq.png)
+
+----------
+
+**User Photos Slider:** 
+
+![User Photos Slider](https://i.imgur.com/f7xRCzb.png)
+
+----------
+
+**Popular Photos Grid:** 
+
+![Popular Photos Grid](https://i.imgur.com/3VmCCAK.jpg)
+
+----------
+
 
 ## Tests
 ![Unit Tests](https://i.imgur.com/gLqVgd0.png)   
