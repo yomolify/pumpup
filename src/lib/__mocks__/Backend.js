@@ -19,41 +19,13 @@ export default class Backend {
    * prepare the response for all the methods
    */
   constructor () {
-    var _bodyInit = JSON.stringify({
+    let _bodyInit = JSON.stringify({
       code: 200
     })
     this.response = {
       'status': 201
     }
     this.response._bodyInit = _bodyInit
-  }
-  /**
-   * ### logout
-   * @returns {Object} response
-   */
-  async logout () {
-    return await this.response
-  }
-  /**
-   * ### login
-   * @returns {Object} response
-   */
-  async login () {
-    return await this.response
-  }
-  /**
-   * ### signup
-   * @returns {Object} response
-   */
-  async signup () {
-    return await this.response
-  }
-  /**
-   * ### resetPassword
-   * @returns {Object} response
-   */
-  async resetPassword () {
-    return await this.response
   }
   /**
    * ### getUserProfile
@@ -63,10 +35,17 @@ export default class Backend {
     return await this.response
   }
   /**
-   * ### updateProfile
+   * ### getUserPhotos
    * @returns {Object} response
    */
-  async updateProfile () {
+  async getUserPhotos () {
+    return await this.response
+  }
+    /**
+   * ### getPopularPhotos
+   * @returns {Object} response
+   */
+  async getPopularPhotos () {
     return await this.response
   }
 

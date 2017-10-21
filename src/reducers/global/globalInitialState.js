@@ -26,7 +26,7 @@ import {Record} from 'immutable'
  *   * profile
  *
  */
-var InitialState = Record({
+let InitialState = Record({
   currentUser: null,
   showState: false,
   currentState: null,

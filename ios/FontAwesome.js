@@ -6,8 +6,8 @@
  */
 'use strict'
 
-var createIconSet = require('./lib/create-icon-set')
-var glyphMap = {
+let createIconSet = require('./lib/create-icon-set')
+let glyphMap = {
   'glass': 61440,
   'music': 61441,
   'search': 61442,
@@ -684,7 +684,7 @@ var glyphMap = {
   'fonticons': 62080
 }
 
-var FontAwesome = createIconSet(glyphMap, 'FontAwesome', 'Fonts/FontAwesome.ttf')
+let FontAwesome = createIconSet(glyphMap, 'FontAwesome', 'Fonts/FontAwesome.ttf')
 
 module.exports = FontAwesome
 module.exports.glyphMap = glyphMap

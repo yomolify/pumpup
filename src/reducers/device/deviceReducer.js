@@ -27,28 +27,32 @@ const initialState = new InitialState()
  * @param {Object} action - type and payload
  */
 export default function deviceReducer (state = initialState, action) {
-  if (!(state instanceof InitialState)) return initialState.merge(state)
+  if (!(state instanceof InitialState)) {
+    return initialState.merge(state)
+  }
 
   switch (action.type) {
 
-    /**
-     * ### set the platform in the state
-     *
-     */
-    case SET_PLATFORM: {
-      const platform = action.payload
-      return state.set('platform', platform)
-    }
-
-    /**
-     * ### set the version in the state
-     *
-     */
-    case SET_VERSION: {
-      const version = action.payload
-      return state.set('version', version)
-    }
+  /**
+   * ### set the platform in the state
+   *
+   */
+  case SET_PLATFORM: {
+    const platform = action.payload
+    return state.set('platform', platform)
   }
 
-  return state
+  /**
+   * ### set the version in the state
+   *
+   */
+  case SET_VERSION: {
+    const version = action.payload
+    return state.set('version', version)
+  }
+
+  default:
+    return state
+
+  }
 }

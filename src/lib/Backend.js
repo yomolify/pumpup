@@ -12,95 +12,95 @@
 require('regenerator-runtime/runtime')
 
 export default class Backend {
-  /**
-   * ### signup
-   *
-   * @param data object
-   *
-   * {username: "barton", email: "foo@gmail.com", password: "Passw0rd!"}
-   *
-   * @return
-   * if ok, {createdAt: "2015-12-30T15:17:05.379Z",
-   *   objectId: "5TgExo2wBA",
-   *   sessionToken: "r:dEgdUkcs2ydMV9Y9mt8HcBrDM"}
-   *
-   * if error, {code: xxx, error: 'message'}
-   */
-  signup (data) {
 
-  }
- /**
-   * ### login
-   * encode the data and and call _fetch
-   *
-   * @param data
-   *
-   *  {username: "barton", password: "Passw0rd!"}
-   *
-   * @returns
-   *
-   * createdAt: "2015-12-30T15:29:36.611Z"
-   * email: "barton@foo.com"
-   * objectId: "Z4yvP19OeL"
-   * sessionToken: "r:Kt9wXIBWD0dNijNIq2u5rRllW"
-   * updatedAt: "2015-12-30T16:08:50.419Z"
-   * username: "barton"
-   *
-   */
-  login (data) {
-
-  }
-  /**
-   * ### logout
-   * prepare the request and call _fetch
-   */
-  logout () {
-
-  }
-  /**
-   * ### resetPassword
-   * the data is already in a JSON format, so call _fetch
-   *
-   * @param data
-   * {email: "barton@foo.com"}
-   *
-   * @returns empty object
-   *
-   * if error:  {code: xxx, error: 'message'}
-   */
-  resetPassword (data) {
-
-  }
   /**
    * ### getUserProfile
    * Using the sessionToken, we'll get everything about
    * the current user.
-   *
-   * @returns
-   *
+   * @return {Object}
    * if good:
-   * {createdAt: "2015-12-30T15:29:36.611Z"
-   *  email: "barton@acclivyx.com"
-   *  objectId: "Z4yvP19OeL"
-   *  sessionToken: "r:uFeYONgIsZMPyxOWVJ6VqJGqv"
-   *  updatedAt: "2015-12-30T15:29:36.611Z"
-   *  username: "barton"}
+   * {bio: "string of 4-5 lines"
+   *  birthday: {
+   *      __type: "Date"
+   *      iso: "1992-02-17T00:00:00.000Z"}
+   *  followerCount: "708024"
+   *  followingCount: "335"
+   *  gender: "2"
+   *  lastActiveDate: {
+   *      __type: "Date"
+   *      iso: "2017-10-17T20:34:28.561Z"}
+   *  location: "Toronto, Canada"
+   *  name: "pumpup"
+   *  postCount: "2942"
+   *  profileImage: "image-url"
+   *  profileThumbnail: "thumbnail-url"
+   *  role: "3"
+   *  website: "website-url"
+   *  createdAt: "2014-02-03T07:21:44.372Z"
+   *  updatedAt: "2017-10-17T20:34:39.453Z"
+   *  className: "User"
+   *  objectId: "318381"}
    *
-   * if error, {code: xxx, error: 'message'}
+   * if error: {code: xxx, error: 'message'}
    */
-  getUserProfile () {
-  }
+  getUserProfile () {}
+
+
   /**
-   * ### updateProfile
-   * for this user, update their record
-   * the data is already in JSON format
+   * ### getUserPhotos
+   * Using the sessionToken, we'll get the
+   * user feed photos for the slider
+   * @return {Object}
+   * if good:
+   * {result: {
+   *      posts: [{
+   *            createdAt: "2016-09-16T22:18:13.091Z",
+   *            thumbnail: "http://thumbnail-url1.com",
+   *            className: "Post",
+   *           objectId: 17517155,
+   *          "__type: "Object"},
+   *         {createdAt: "2016-03-23T20:42:20.304Z",
+   *            thumbnail: "http://thumbnail-url2.com",
+   *            className: "Post",
+   *           objectId: 16080756,
+   *          "__type: "Object"},
+   *         ...
+   *         ...
+   *            ]
+   *         }
+   * }
    *
-   * @param userId
-   * @param data object:
-   * {username: "barton", email: "barton@foo.com"}
+   * if error: {code: xxx, error: 'message'}
    */
-  updateProfile (userId, data) {
-  }
+  getUserPhotos () {}
+
+  /**
+   * ### getPopularPhotos
+   * Using the sessionToken, we'll get the
+   * popular feed photos for the grid
+   * @return {Object}
+   * if good:
+   * {result: {
+   *      posts: [{
+   *           createdAt: "2016-09-16T22:18:13.091Z",
+   *           thumbnail: "http://thumbnail-url1.com",
+   *           className: "Post",
+   *           objectId: 17517155,
+   *           __type: "Object"},
+   *         {createdAt: "2016-03-23T20:42:20.304Z",
+   *           thumbnail: "http://thumbnail-url2.com",
+   *           className: "Post",
+   *           objectId: 16080756,
+   *           __type: "Object"},
+   *         ...
+   *         ...
+   *            ]
+   *         }
+   * }
+   *
+   * if error: {code: xxx, error: 'message'}
+   */
+  getPopularPhotos() {}
 
 }
 

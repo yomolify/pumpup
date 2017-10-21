@@ -1,6 +1,6 @@
 'use strict'
 /**
- *  # pumpup-challenge
+ *  # pumpup
  *  Pumpup Challenge App
  */
 
@@ -47,7 +47,7 @@ import configureStore from './lib/configureStore'
 /**
  * ### Translations
  */
-var I18n = require('react-native-i18n')
+const I18n = require('react-native-i18n')
 
 // Support fallbacks so en-US & en-BR both use en
 I18n.fallbacks = true
@@ -123,14 +123,14 @@ export default function native (platform) {
     render () {
       const store = configureStore(getInitialState())
 
-            // configureStore will combine reducers from snowflake and main application
-            // it will then create the store based on aggregate state from all reducers
+      // configureStore will combine all reducers and
+      // it will then create the store based on aggregate state from all reducers
       store.dispatch(setPlatform(platform))
       store.dispatch(setVersion(VERSION))
       store.dispatch(setStore(store))
 
-            // setup the router table with App selected as the initial component
-            // note: See https://github.com/aksonov/react-native-router-flux/issues/948
+      // setup the router table with App selected as the initial component
+      // note: See https://github.com/aksonov/react-native-router-flux/issues/948
       return (
 
         <Provider store={store}>

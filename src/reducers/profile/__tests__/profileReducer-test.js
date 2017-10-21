@@ -16,14 +16,18 @@
  * These actions of the users profile
  */
 const {
-  ON_PROFILE_FORM_FIELD_CHANGE,
-  GET_PROFILE_REQUEST,
-  GET_PROFILE_SUCCESS,
-  GET_PROFILE_FAILURE,
+  GET_USER_PROFILE_REQUEST,
+  GET_USER_PROFILE_SUCCESS,
+  GET_USER_PROFILE_FAILURE,
 
-  PROFILE_UPDATE_REQUEST,
-  PROFILE_UPDATE_SUCCESS,
-  PROFILE_UPDATE_FAILURE
+  GET_USER_PHOTOS_REQUEST,
+  GET_USER_PHOTOS_SUCCESS,
+  GET_USER_PHOTOS_FAILURE,
+
+  GET_POPULAR_PHOTOS_REQUEST,
+  GET_POPULAR_PHOTOS_SUCCESS,
+  GET_POPULAR_PHOTOS_FAILURE
+
 } = require('../../../lib/constants').default
 
 /**
@@ -44,53 +48,44 @@ describe('profileReducer', () => {
    * ```undefined``` state so that the reducer will return a valid state.
    *
    */
-  describe('PROFILE_REQUEST', () => {
+  describe('USER_PROFILE_REQUEST', () => {
     /**
      * #### starts fetching
-     *
-     * Should have a valid form and no form error
      */
     it('starts fetching', () => {
       const action = {
-        type: GET_PROFILE_REQUEST
+        type: GET_USER_PROFILE_REQUEST
       }
       let next = profileReducer(undefined, action)
 
-      expect(next.form.isFetching).toBe(true)
-      expect(next.form.error).toBe(null)
+      expect(next.userProfile.isFetching).toBe(true)
+      expect(next.userProfile.error).toBe(null)
     })
     /**
      * #### it finishes fetching on success
      *
-     * Should have a valid form and in the Logged out state
-     *
      * We set the action to simulate valid data returning from
      * the server
      *
-     * We validate that after form and field validation, the values
+     * We validate that after success, the values
      * are set.
      */
     it('finishes fetching on success', () => {
       const action = {
-        type: GET_PROFILE_SUCCESS,
+        type: GET_USER_PROFILE_SUCCESS,
         payload: {
-          username: 'barton',
-          email: 'barton@foo.com',
-          emailVerified: true,
-          objectId: 'someObjectId'
+          profileImage: 'https://d1m37qdzmw041i.cloudfront.net/photos/users/profile/image/318381-1505247817263.jpg',
+          name: 'Amol',
+          bio: 'Hey guys, how are you doing today?',
         }
       }
       let next = profileReducer(undefined, action)
 
-      expect(next.form.isFetching).toBe(false)
-      expect(next.form.error).toBe(null)
-      expect(next.form.fields.username).toEqual(action.payload.username)
-      expect(next.form.fields.email).toEqual(action.payload.email)
-      expect(next.form.fields.emailVerified).toBe(action.payload.emailVerified)
-
-      expect(next.form.originalProfile.username).toEqual(action.payload.username)
-      expect(next.form.originalProfile.email).toEqual(action.payload.email)
-      expect(next.form.originalProfile.emailVerified).toBe(action.payload.emailVerified)
+      expect(next.userProfile.isFetching).toBe(false)
+      expect(next.userProfile.error).toBe(null)
+      expect(next.userProfile.userProfile.profileImage).toEqual(action.payload.profileImage)
+      expect(next.userProfile.userProfile.name).toEqual(action.payload.name)
+      expect(next.userProfile.userProfile.bio).toBe(action.payload.bio)
     })
     /**
      * #### finishes fetching on failure
@@ -100,118 +95,153 @@ describe('profileReducer', () => {
      */
     it('finishes fetching on failure', () => {
       const action = {
-        type: GET_PROFILE_FAILURE,
+        type: GET_USER_PROFILE_FAILURE,
         payload: {error: 'error'}
       }
       let next = profileReducer(undefined, action)
-      expect(next.form.isFetching).toBe(false)
-      expect(next.form.error).toBe(action.payload)
+      expect(next.userProfile.isFetching).toBe(false)
+      expect(next.userProfile.error).toBe(action.payload)
     })
-  })// Profile Request
+  })
 
-  /**
-   * ### Profile update
-   *
-   */
-  describe('PROFILE_UPDATE', () => {
+  describe('USER_PHOTOS_REQUEST', () => {
     /**
-     * #### starts fetching on request
-     *
-     * Should have a valid form and show that it's fetching
+     * #### starts fetching
      */
-    it('starts fetching on request', () => {
+    it('starts fetching', () => {
       const action = {
-        type: PROFILE_UPDATE_REQUEST
+        type: GET_USER_PHOTOS_REQUEST
       }
       let next = profileReducer(undefined, action)
 
-      expect(next.form.isFetching).toBe(true)
-      expect(next.form.error).toBe(null)
+      expect(next.userPhotos.isFetching).toBe(true)
+      expect(next.userPhotos.error).toBe(null)
     })
     /**
-     * #### finishes fetching on success
+     * #### it finishes fetching on success
      *
-     * Toggle fetching flag
+     * We set the action to simulate valid data returning from
+     * the server
+     *
+     * We validate that after success, the values
+     * are set.
      */
     it('finishes fetching on success', () => {
       const action = {
-        type: PROFILE_UPDATE_SUCCESS
+        type: GET_USER_PHOTOS_SUCCESS,
+
+        payload: {
+          result: {
+            posts: [
+              {
+                createdAt: '2016-09-16T22:18:13.091Z',
+                thumbnail: 'https://d1m37qdzmw041i.cloudfront.net/photos/posts/thumbnails/17517155-1474064295274.jpg',
+                className: 'Post',
+                objectId: '17517155',
+                __type: 'Object'
+              },
+              {
+                createdAt: '2016-03-23T20:42:20.304Z',
+                thumbnail: 'https://d1m37qdzmw041i.cloudfront.net/photos/posts/thumbnails/16080756-1458765641755.jpg',
+                className: 'Post',
+                objectId: '16080756',
+                __type: 'Object'
+              },
+            ]
+          }
+        }
       }
       let next = profileReducer(undefined, action)
 
-      expect(next.form.isFetching).toBe(false)
+      expect(next.userPhotos.isFetching).toBe(false)
+      expect(next.userPhotos.error).toBe(null)
+      expect(next.userPhotos.userPhotos.result.posts).toEqual(action.payload.result.posts)
     })
     /**
-     * #### finishes fetching on failure and saves error
+     * #### finishes fetching on failure
      *
-     * The fetching has ended and the error saved so the user can see
-     * it
+     * On failure, toggle the fetching flag and provide the error so
+     * the use can see it
      */
-    it('finishes fetching on failure and saves error', () => {
+    it('finishes fetching on failure', () => {
       const action = {
-        type: PROFILE_UPDATE_FAILURE,
+        type: GET_USER_PHOTOS_FAILURE,
         payload: {error: 'error'}
       }
       let next = profileReducer(undefined, action)
-      expect(next.form.isFetching).toBe(false)
-      expect(next.form.error).toBe(action.payload)
+      expect(next.userPhotos.isFetching).toBe(false)
+      expect(next.userPhotos.error).toBe(action.payload)
     })
-  })// ProfileUpdate
-  /**
-   * ### Profile form field changes
-   *
-   */
-  describe('PROFILE_FORM_FIELD_CHANGE', () => {
-    /**
-     * #### form is valid to logout
-     *
-     * Should have a valid form when the field has no error
-     */
-    it('form is valid with valid email & username', () => {
-      const usernameAction = {
-        type: ON_PROFILE_FORM_FIELD_CHANGE,
-        payload: {field: 'username', value: 'barton'}
-      }
-      const emailAction = {
-        type: ON_PROFILE_FORM_FIELD_CHANGE,
-        payload: {field: 'email', value: 'barton@gmail.com'}
-      }
-      let firstState = profileReducer(undefined,
-                                usernameAction)
-      let next = profileReducer(firstState,
-                                emailAction)
+  })
 
-      expect(next.form.isValid).toBe(true) //
-      expect(next.form.fields.username).toEqual(usernameAction.payload.value)
-      expect(next.form.fields.usernameHasError).toBe(false)
-      expect(next.form.fields.email).toEqual(emailAction.payload.value)
-      expect(next.form.fields.emailHasError).toBe(false)
+  describe('POPULAR_PHOTOS_REQUEST', () => {
+    /**
+     * #### starts fetching
+     *
+     */
+    it('starts fetching', () => {
+      const action = {
+        type: GET_POPULAR_PHOTOS_REQUEST
+      }
+      let next = profileReducer(undefined, action)
+
+      expect(next.popularPhotos.isFetching).toBe(true)
+      expect(next.popularPhotos.error).toBe(null)
     })
     /**
-     * #### form is invalid with invalid email & invalid username
+     * #### it finishes fetching on success
      *
-     * Bad data in, errors out!
+     * We set the action to simulate valid data returning from
+     * the server
+     *
+     * We validate that after success, the values
+     * are set.
      */
-    it('form is invalid with invalid username', () => {
-      const usernameAction = {
-        type: ON_PROFILE_FORM_FIELD_CHANGE,
-        payload: {field: 'username', value: 'bart'}
+    it('finishes fetching on success', () => {
+      const action = {
+        type: GET_POPULAR_PHOTOS_SUCCESS,
+        payload: {
+          result: {
+            posts: [
+              {
+                createdAt: '2016-09-16T22:18:13.091Z',
+                thumbnail: 'https://d1m37qdzmw041i.cloudfront.net/photos/posts/thumbnails/17517155-1474064295274.jpg',
+                className: 'Post',
+                objectId: '17517155',
+                __type: 'Object'
+              },
+              {
+                createdAt: '2016-03-23T20:42:20.304Z',
+                thumbnail: 'https://d1m37qdzmw041i.cloudfront.net/photos/posts/thumbnails/16080756-1458765641755.jpg',
+                className: 'Post',
+                objectId: '16080756',
+                __type: 'Object'
+              },
+            ]
+          }
+        }
       }
+      let next = profileReducer(undefined, action)
 
-      const emailAction = {
-        type: ON_PROFILE_FORM_FIELD_CHANGE,
-        payload: {field: 'email', value: 'bart'}
-      }
-      let firstState = profileReducer(undefined,
-                                usernameAction)
-
-      let next = profileReducer(firstState, emailAction)
-
-      expect(next.form.isValid).toBe(false)
-      expect(next.form.fields.username).toEqual(usernameAction.payload.value)
-      expect(next.form.fields.usernameHasError).toBe(true)
-      expect(next.form.fields.email).toEqual(emailAction.payload.value)
-      expect(next.form.fields.emailHasError).toBe(true)
+      expect(next.popularPhotos.isFetching).toBe(false)
+      expect(next.popularPhotos.error).toBe(null)
+      expect(next.popularPhotos.popularPhotos.result.posts).toEqual(action.payload.result.posts)
     })
-  }) // FORM FIELD CHANGE
-})// profileReducer
+
+    /**
+     * #### finishes fetching on failure
+     *
+     * On failure, toggle the fetching flag and provide the error so
+     * the use can see it
+     */
+    it('finishes fetching on failure', () => {
+      const action = {
+        type: GET_POPULAR_PHOTOS_FAILURE,
+        payload: {error: 'error'}
+      }
+      let next = profileReducer(undefined, action)
+      expect(next.popularPhotos.isFetching).toBe(false)
+      expect(next.popularPhotos.error).toBe(action.payload)
+    })
+  })
+})

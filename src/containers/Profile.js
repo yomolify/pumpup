@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent'
   },
   divider: {
-    backgroundColor: '#ddd'
+    backgroundColor: '#eee'
   },
   userProfile: {
     marginTop: 10,
@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
     marginBottom: 50
   },
   popularPhotosGrid: {
-    // marginBottom: 50
   }
 })
 
@@ -121,32 +120,32 @@ class Profile extends Component {
     const { userProfile, userPhotos, popularPhotos } = this.props
 
     return (
-      <ScrollView style={styles.container}>
-        <Header
+      <View style={styles.container}>
+      <Header
         centerComponent={{ text: 'PumpUp', style: { color: '#333' } }}
         outerContainerStyles={{position: 'relative'}}/>
+        <ScrollView style={styles.scrollView}>
 
-        <Divider style={styles.divider} />
+          {/* User Profile(Bio) */}
+          <View style={styles.userProfile}>
+            <UserProfile userProfile={userProfile}/>
+          </View>
 
-        {/* User Profile(Bio) */}
-        <View style={styles.userProfile}>
-          <UserProfile userProfile={userProfile}/>
-        </View>
+          <Divider style={styles.divider} />
 
-        <Divider style={styles.divider} />
+          {/* User Feed  Photos  (Slider) */}
+          <View style={styles.userPhotosSlider}>
+            <UserPhotosSlider userPhotos={userPhotos}/>
+          </View>
 
-        {/* User Feed  Photos  (Slider) */}
-        <View style={styles.userPhotosSlider}>
-          <UserPhotosSlider userPhotos={userPhotos}/>
-        </View>
+          {/* Popular Feed  Photos  (Grid) */}
+          <View style={styles.popularPhotosGrid}>
+            <PopularPhotosGrid popularPhotos={popularPhotos}/>
+          </View>
 
-        {/* Popular Feed  Photos  (Grid) */}
-        <View style={styles.popularPhotosGrid}>
-          <PopularPhotosGrid popularPhotos={popularPhotos}/>
-        </View>
-
-        <Divider style={styles.divider} />
-      </ScrollView>
+          <Divider style={styles.divider} />
+        </ScrollView>
+      </View>
     )
   }
 }

@@ -25,9 +25,8 @@ const {
 
   GET_POPULAR_PHOTOS_REQUEST,
   GET_POPULAR_PHOTOS_SUCCESS,
-  GET_POPULAR_PHOTOS_FAILURE,
+  GET_POPULAR_PHOTOS_FAILURE
 
-  SET_STATE
 } = require('../../lib/constants').default
 
 /**
@@ -43,10 +42,9 @@ const initialState = new InitialState()
  * @param {Object} action - type and payload
  */
 export default function profileReducer (state = initialState, action) {
-  let nextProfileState = null
-
-  if (!(state instanceof InitialState)) return initialState.mergeDeep(state)
-
+  if (!(state instanceof InitialState)) {
+    return initialState.mergeDeep(state)
+  }
   switch (action.type) {
   /**
    * ### UserProfile Requst
@@ -97,43 +95,10 @@ export default function profileReducer (state = initialState, action) {
     .setIn(['popularPhotos', 'error'], null)
     .setIn(['popularPhotos', 'popularPhotos'], action.payload)
 
-
   case GET_POPULAR_PHOTOS_FAILURE:
     return state.setIn(['popularPhotos', 'isFetching'], false)
     .setIn(['popularPhotos', 'error'], action.payload)
 
-  /**
-   * ### set the state
-   *
-   * This is in support of Hot Loading - take the payload
-   * and set the values into the state
-   *
-   */
-  case SET_STATE:
-    var profile = JSON.parse(action.payload).profile.form
-    var next = state.setIn(['form', 'disabled'], profile.disabled)
-        .setIn(['form', 'error'], profile.error)
-        .setIn(['form', 'isValid'], profile.isValid)
-        .setIn(['form', 'isFetching'], profile.isFetching)
-        .setIn(['form', 'originalProfile',
-                'username'], profile.originalProfile.username)
-        .setIn(['form', 'originalProfile',
-                'email'], profile.originalProfile.email)
-        .setIn(['form', 'originalProfile',
-                'objectId'], profile.originalProfile.objectId)
-        .setIn(['form', 'originalProfile',
-                'emailVerified'], profile.originalProfile.emailVerified)
-        .setIn(['form', 'fields',
-                'username'], profile.fields.username)
-        .setIn(['form', 'fields',
-                'usernameHasError'], profile.fields.usernameHasError)
-        .setIn(['form', 'fields',
-                'email'], profile.fields.email)
-        .setIn(['form', 'fields',
-                'emailHasError'], profile.fields.emailHasError)
-        .setIn(['form', 'fields',
-                'emailVerified'], profile.fields.emailVerified)
-    return next
   default:
 
   }// switch

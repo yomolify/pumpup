@@ -7,11 +7,11 @@
 'use strict'
 
 import CONFIG from './config'
-import {pumpupAPI} from './PumpupAPI'
+import {pumpupApi} from './PumpupApi'
 
 export default function BackendFactory (token = CONFIG.SESSION_TOKEN) {
-  if (CONFIG.backend.PumpUpAPILocal || CONFIG.backend.PumpUpAPIRemote) {
-    pumpupAPI.initialize(token)
-    return pumpupAPI
+  if (CONFIG.backend.PumpupApiLocal || CONFIG.backend.PumpupApiRemote) {
+    pumpupApi.initialize(token)
+    return pumpupApi
   }
 }

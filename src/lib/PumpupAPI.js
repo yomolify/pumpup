@@ -1,8 +1,7 @@
 /**
- * # Hapi.js
+ * # PumpupApi.js
  *
- * This class interfaces with Hapi.com using the rest api
- * see [http://hapijs.com/api](http://hapijs.com/api)
+ * This class interfaces with api.pumpup.com using rest methodologies
  *
  * Singleton module see: https://k94n.com/es6-modules-single-instance-pattern
  */
@@ -17,10 +16,9 @@ import CONFIG from './config'
 import _ from 'lodash'
 import Backend from './Backend'
 
-export class PumpUpAPI extends Backend {
+export class PumpupApi extends Backend {
   /**
-   * ## PumpUpAPI client
-   *
+   * ## PumpupApi client
    *
    * @throws tokenMissing if token is undefined
    */
@@ -31,10 +29,11 @@ export class PumpUpAPI extends Backend {
     this._sessionToken =
       _.isNull(token) ? null : token
 
-    this.API_BASE_URL = CONFIG.backend.PumpUpAPILocal
-          ? CONFIG.PumpUpAPI.local.url
-          : CONFIG.PumpUpAPI.remote.url
+    this.API_BASE_URL = CONFIG.backend.PumpupApiLocal
+          ? CONFIG.PumpupApi.local.url
+          : CONFIG.PumpupApi.remote.url
   }
+
 
   /**
    * ### getUserProfile
@@ -93,7 +92,8 @@ export class PumpUpAPI extends Backend {
       })
   }
 
-    /**
+
+  /**
    * ### getUserPhotos
    * Using the sessionToken, we'll get the
    * user feed photos for the slider
@@ -151,8 +151,7 @@ export class PumpUpAPI extends Backend {
   }
 
 
-
-    /**
+  /**
    * ### getPopularPhotos
    * Using the sessionToken, we'll get the
    * popular feed photos for the grid
@@ -207,6 +206,8 @@ export class PumpUpAPI extends Backend {
         throw (error)
       })
   }
+
+
   /**
    * ### _fetch
    * A function that prepares the request by
@@ -262,5 +263,6 @@ export class PumpUpAPI extends Backend {
     }
   }
 }
-// The singleton variable
-export let pumpupAPI = new PumpUpAPI()
+
+/* The singleton variable */
+export let pumpupApi = new PumpupApi()

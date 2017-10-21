@@ -13,44 +13,23 @@
  * ## Import
  */
 const {Record} = require('immutable')
-const {
-  REGISTER
-} = require('../../lib/constants').default
 
 /**
- * ## Form
- * This Record contains the state of the form and the
- * fields it contains.
+ * ## Token
+ * This Record contains the state of the session token
+ * whether it is being fetched or has erred
  */
-const Form = Record({
-  state: REGISTER,
-  disabled: false,
+const Token = Record({
   error: null,
-  isValid: false,
   isFetching: false,
-  fields: new (Record({
-    username: '',
-    usernameHasError: false,
-    usernameErrorMsg: '',
-    email: '',
-    emailHasError: false,
-    emailErrorMsg: '',
-    password: '',
-    passwordHasError: false,
-    passwordErrorMsg: '',
-    passwordAgain: '',
-    passwordAgainHasError: false,
-    passwordAgainErrorMsg: '',
-    showPassword: false
-  }))()
 })
 
 /**
  * ## InitialState
- * The form is set
+ * The token fields are set
  */
-var InitialState = Record({
-  form: new Form()
+let InitialState = Record({
+  token: new Token()
 })
 export default InitialState
 

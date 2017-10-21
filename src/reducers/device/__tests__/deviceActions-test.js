@@ -21,7 +21,7 @@ jest.mock('../../../lib/BackendFactory')
  * ## Class under test
  *
  */
-var actions = require('../deviceActions')
+let actions = require('../deviceActions')
 
 /**
  * ## Imports

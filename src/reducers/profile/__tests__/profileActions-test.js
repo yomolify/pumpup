@@ -1,7 +1,7 @@
 /**
  * # profileActions.js
  *
- * All the request actions have 3 variations, the request, a success
+ * All the request actions have 3 letiations, the request, a success
  * and a failure. They all follow the pattern that the request will
  * set the ```isFetching``` to true and the whether it's successful or
  * fails, setting it back to false.
@@ -38,16 +38,17 @@ const actions = require('../profileActions')
  * ## Actions to test
  */
 const {
-  GET_PROFILE_REQUEST,
-  GET_PROFILE_SUCCESS,
-  GET_PROFILE_FAILURE,
+  GET_USER_PROFILE_REQUEST,
+  GET_USER_PROFILE_SUCCESS,
+  GET_USER_PROFILE_FAILURE,
 
-  PROFILE_UPDATE_REQUEST,
-  PROFILE_UPDATE_SUCCESS,
-  PROFILE_UPDATE_FAILURE,
+  GET_USER_PHOTOS_REQUEST,
+  GET_USER_PHOTOS_SUCCESS,
+  GET_USER_PHOTOS_FAILURE,
 
-  ON_PROFILE_FORM_FIELD_CHANGE
-
+  GET_POPULAR_PHOTOS_REQUEST,
+  GET_POPULAR_PHOTOS_SUCCESS,
+  GET_POPULAR_PHOTOS_FAILURE
 } = require('../../../lib/constants').default
 
 /**
@@ -60,43 +61,57 @@ describe('profileActions', () => {
    * ### simple tests that prove the actions have the specific type
    */
   it('should getUserProfileRequest', () => {
-    expect(actions.getUserProfileRequest()).toEqual({type: GET_PROFILE_REQUEST})
+    expect(actions.getUserProfileRequest()).toEqual({type: GET_USER_PROFILE_REQUEST})
   })
 
   it('should getUserProfileSuccess', () => {
-    var json = {json: true}
+    let json = {json: true}
     expect(actions.getUserProfileSuccess(json)).toEqual({type:
-                                                     GET_PROFILE_SUCCESS,
-                                                     payload: json})
+                                                      GET_USER_PROFILE_SUCCESS,
+                                                      payload: json})
   })
 
   it('should getUserProfileFailure', () => {
-    var json = {json: true}
+    let json = {json: true}
     expect(actions.getUserProfileFailure(json)).toEqual({type:
-                                                     GET_PROFILE_FAILURE,
-                                                     payload: json})
+                                                      GET_USER_PROFILE_FAILURE,
+                                                      payload: json})
   })
 
-  it('should profileUpdateRequest', () => {
-    expect(actions.profileUpdateRequest()).toEqual({type: PROFILE_UPDATE_REQUEST})
+  it('should getUserPhotosRequest', () => {
+    expect(actions.getUserPhotosRequest()).toEqual({type: GET_USER_PHOTOS_REQUEST})
   })
 
-  it('should profileUpdateSuccess', () => {
-    expect(actions.profileUpdateSuccess()).toEqual({type: PROFILE_UPDATE_SUCCESS})
+  it('should getUserPhotosSuccess', () => {
+    let json = {json: true}
+    expect(actions.getUserPhotosSuccess(json)).toEqual({type:
+                                                      GET_USER_PHOTOS_SUCCESS,
+                                                      payload: json})
   })
 
-  it('should profileUpdateFailure', () => {
-    var json = {json: true}
-    expect(actions.profileUpdateFailure(json)).toEqual({type:
-                                                        PROFILE_UPDATE_FAILURE,
-                                                        payload: json})
+  it('should getUserPhotosFailure', () => {
+    let json = {json: true}
+    expect(actions.getUserPhotosFailure(json)).toEqual({type:
+                                                      GET_USER_PHOTOS_FAILURE,
+                                                      payload: json})
   })
 
-  it('should onProfileFormFieldChange', () => {
-    let field = 'field'
-    let value = 'value'
-    expect(actions.onProfileFormFieldChange(field, value)).toEqual({
-      type: ON_PROFILE_FORM_FIELD_CHANGE, payload: {field: field, value: value}})
+  it('should getPopularPhotosRequest', () => {
+    expect(actions.getPopularPhotosRequest()).toEqual({type: GET_POPULAR_PHOTOS_REQUEST})
+  })
+
+  it('should getPopularPhotosSuccess', () => {
+    let json = {json: true}
+    expect(actions.getPopularPhotosSuccess(json)).toEqual({type:
+                                                      GET_POPULAR_PHOTOS_SUCCESS,
+                                                      payload: json})
+  })
+
+  it('should getPopularPhotosFailure', () => {
+    let json = {json: true}
+    expect(actions.getPopularPhotosFailure(json)).toEqual({type:
+                                                      GET_POPULAR_PHOTOS_FAILURE,
+                                                      payload: json})
   })
 
   /**
@@ -110,8 +125,8 @@ describe('profileActions', () => {
    */
   it('should getUserProfile', () => {
     const expectedActions = [
-      {type: GET_PROFILE_REQUEST},
-      {type: GET_PROFILE_SUCCESS}
+      {type: GET_USER_PROFILE_REQUEST},
+      {type: GET_USER_PROFILE_SUCCESS}
     ]
 
     const store = mockStore({})
@@ -122,17 +137,31 @@ describe('profileActions', () => {
       })
   })
 
-  it('should updateProfile', () => {
+  it('should getUserPhotos', () => {
     const expectedActions = [
-      {type: PROFILE_UPDATE_REQUEST},
-      {type: PROFILE_UPDATE_SUCCESS},
-      {type: GET_PROFILE_REQUEST}
+      {type: GET_USER_PHOTOS_REQUEST},
+      {type: GET_USER_PHOTOS_SUCCESS}
     ]
 
     const store = mockStore({})
-    return store.dispatch(actions.updateProfile('userid', 'username', 'email'))
+    return store.dispatch(actions.getUserPhotos())
       .then(() => {
-        expect(store.getActions()).toEqual(expectedActions)
+        expect(store.getActions()[0].type).toEqual(expectedActions[0].type)
+        expect(store.getActions()[1].type).toEqual(expectedActions[1].type)
+      })
+  })
+
+  it('should getPopularPhotos', () => {
+    const expectedActions = [
+      {type: GET_POPULAR_PHOTOS_REQUEST},
+      {type: GET_POPULAR_PHOTOS_SUCCESS}
+    ]
+
+    const store = mockStore({})
+    return store.dispatch(actions.getPopularPhotos())
+      .then(() => {
+        expect(store.getActions()[0].type).toEqual(expectedActions[0].type)
+        expect(store.getActions()[1].type).toEqual(expectedActions[1].type)
       })
   })
 })

@@ -27,14 +27,25 @@ import CONFIG from '../lib/config'
 /**
  * The components we need from ReactNative
  */
-import React from 'react'
+import React, {PropTypes} from 'react'
 import
 {
-    StyleSheet,
-    View,
-    Text
+    View
 }
 from 'react-native'
+
+/**
+ * ## App class
+ */
+let reactMixin = require('react-mixin')
+import TimerMixin from 'react-timer-mixin'
+/**
+ * ### Translations
+ */
+let I18n = require('react-native-i18n')
+import Translations from '../lib/Translations'
+I18n.translations = Translations
+
 
 /**
  *  Save that state
@@ -42,11 +53,6 @@ from 'react-native'
 function mapStateToProps (state) {
   return {
     deviceVersion: state.device.version,
-    auth: {
-      form: {
-        isFetching: state.auth.form.isFetching
-      }
-    },
     global: {
       currentState: state.global.currentState,
       showState: state.global.showState
@@ -63,30 +69,15 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-var styles = StyleSheet.create({
-  container: {
-  }
-})
-
-/**
- * ## App class
- */
-var reactMixin = require('react-mixin')
-import TimerMixin from 'react-timer-mixin'
-/**
- * ### Translations
- */
-var I18n = require('react-native-i18n')
-import Translations from '../lib/Translations'
-I18n.translations = Translations
-
 let App = React.createClass({
-    /**
-     * See if there's a sessionToken from a previous login
-     *
-     */
+  propTypes: {
+    actions: PropTypes.object.isRequired
+  },
+
+
   componentDidMount () {
-        // Use a timer so App screen is displayed
+        // Mimicking an authenticated session
+        // Use a timer so session token is obtained and profile screen is displayed
     this.setTimeout(
             () => {
               this.props.actions.getSessionToken(CONFIG.SESSION_TOKEN)
@@ -97,12 +88,13 @@ let App = React.createClass({
 
   render () {
     return (
-      <View style={styles.container}>
-
-      </View>
+      <View></View>
     )
   }
 })
+
+
+
 // Since we're using ES6 classes, have to define the TimerMixin
 reactMixin(App.prototype, TimerMixin)
 /**
